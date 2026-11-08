@@ -1,0 +1,394 @@
+{
+  "lastwar": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "roblox": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/roblox.svg"
+  },
+  "lordnine": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "gf2": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "metalslug": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "horizon": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "nexon": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nexon.svg"
+  },
+  "steam": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/steam.svg"
+  },
+  "nextmarket": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "stove": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "ncsoft": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "netmarble": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "hangame": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "pmang": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "webzen": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "wemade": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "blizzard": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "riot": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/riotgames.svg"
+  },
+  "psstore": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/playstation.svg"
+  },
+  "googleplay": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/googleplay.svg"
+  },
+  "cgv": {
+    "kind": "wikimedia_svg",
+    "source": "https://commons.wikimedia.org/wiki/File:CGV_logo.svg"
+  },
+  "bunjang": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "yes24": {
+    "kind": "local_svg",
+    "source": "yes24-seeklogo.svg"
+  },
+  "culturemall": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "gsshop": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "ridi": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "db": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "lottecinema": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "aladin": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "kyobo": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "megabox": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "kakaopage": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "hmall": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "lotteshop": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "daiso": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "coupang": {
+    "kind": "local_svg",
+    "source": "Coupang_logo.svg"
+  },
+  "otocash": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "npay": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "gln": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "welcome": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "dalpoint": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "cjone": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "payco": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "ssg": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "smilemoney": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "happypoint": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "11pay": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "lpoint": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "hpoint": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "mobilcard": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "paybook": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "apartment": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "olive": {
+    "kind": "local_svg",
+    "source": "Olive_Young_Logo.svg"
+  },
+  "tiktok": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tiktok.svg"
+  },
+  "shinsegae": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "lotte": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "soop": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "webtoon": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "emart": {
+    "kind": "wikimedia_svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Emart%20Logo.svg"
+  },
+  "cjgift": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "cjmarket": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "cjfood": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "smilegift": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "ikea": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/ikea.svg"
+  },
+  "disney": {
+    "kind": "thesvg",
+    "source": "https://thesvg.org/icons/disney-plus/default.svg"
+  },
+  "starbucks": {
+    "kind": "simple_icons",
+    "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/starbucks.svg"
+  },
+  "ediya": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "tdata": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "troaming": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "tdirect": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "yogurt": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "jaws": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "theborn": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "hongroo": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "kgc": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "cu": {
+    "kind": "wikimedia_svg",
+    "source": "https://commons.wikimedia.org/wiki/File:CU_BI_(2017).svg"
+  },
+  "gs25": {
+    "kind": "wikimedia_svg",
+    "source": "https://commons.wikimedia.org/wiki/File:GS25%20bi%20%282019%29.svg"
+  },
+  "seveneleven": {
+    "kind": "wikimedia_svg",
+    "source": "https://commons.wikimedia.org/wiki/File:7-Eleven%20logo%202021.svg"
+  },
+  "emart24": {
+    "kind": "wikimedia_svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Emart%2024%20logo.svg"
+  },
+  "artbox": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "hottracks": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "phoenixpyeongchang": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "phoenixseopjikoji": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "ashley": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "ashleyqueens": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "pizzamall": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "jayeon": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "bangung": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "roun": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "rimini": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "tero": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "foodempire": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "xingkai": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "kisara": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "dalkomm": {
+    "kind": "official_svg",
+    "source": "https://dalkomm.com/@resource/images/com/dalkomm.svg?v=20230717"
+  },
+  "beansbins": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "newyorkburger": {
+    "kind": "label_fallback",
+    "source": null
+  },
+  "alpha": {
+    "kind": "label_fallback",
+    "source": null
+  }
+}
