@@ -274,8 +274,8 @@ function HoldingSheet({ draft, setDraft, onClose, onConfirm }) {
   return <div className="sheet-overlay" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}><section className="sheet" role="dialog" aria-modal="true" aria-label="지금 가진 것 고르기" tabIndex={-1} ref={dialogRef}>
     <div className="sheet-handle" /><h2>잠깐, 현재 소지하신 상품권이 있나요?</h2>
     <div className="holding-options">{Object.entries(holdings).map(([key, item]) => <button key={key} className={`holding-option ${draft === key ? 'selected' : ''}`} aria-pressed={draft === key} onClick={() => setDraft(key)}>
-      {key === 'cash' ? <span className="cash-placeholder">잔액 화면 이미지</span> : <img src={`${ASSET}${key === 'voucher' ? '17-2-imgImg2.png' : '17-2-imgImg3.png'}`} alt="" />}
-      <span><strong>{item.name}</strong><small>{item.detail}</small></span><span className="option-radio" />
+      <img src={`${ASSET}figma-holding-${key}.png`} alt="" />
+      <span className="holding-option-copy"><strong>{item.name}</strong><small>{item.detail}</small></span>
     </button>)}</div>
     <button className="primary-button confirm" onClick={onConfirm}>이 수단으로 결정하기</button>
   </section></div>;
