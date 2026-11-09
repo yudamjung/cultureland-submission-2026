@@ -12,7 +12,12 @@ test('조사 목록과 오프라인 중복 통합', () => {
   assert.equal(places.filter(({ offline }) => offline === 'yes').length, 28);
   assert.ok(places.every(({ id, logo }) => logo === culturelandOriginalLogos[id] || logo.startsWith('https://image.cultureland.co.kr/') || existsSync(`public${logo}`)));
   assert.equal(Object.keys(culturelandOriginalLogos).length, 67);
-  assert.equal(places.filter(({ logo }) => logo.startsWith('https://image.cultureland.co.kr/')).length, 80);
+  assert.equal(places.filter(({ logo }) => logo.startsWith('https://image.cultureland.co.kr/')).length, 81);
+  assert.equal(places.find(({ id }) => id === 'tncash').logo, 'https://image.cultureland.co.kr/upload/web/usecashService/202607020915256248.png');
+  const supplied = places.filter(({ logo }) => logo.startsWith('/assets/logos/brand-'));
+  assert.equal(supplied.length, 39);
+  assert.ok(supplied.every(({ logo }) => existsSync(`public${logo}`)));
+  assert.deepEqual(places.filter(({ logoOnDark }) => logoOnDark).map(({ id }) => id).sort(), ['bangung', 'blackdesert', 'cabal', 'cheonsangbi', 'hanbiton', 'jayeon', 'joycity', 'mookhon', 'nextmarket', 'paymentwall', 'pizzamall', 'rimini', 'rohan', 'roun']);
   assert.equal(places.filter(({ sourceUrl }) => sourceUrl.endsWith('/usecash/useCash.do')).length, 95);
   assert.equal(places.find(({ id }) => id === 'olive').name, '올리브영');
   assert.equal(places.find(({ id }) => id === 'ssg').name, 'SSG PAY');

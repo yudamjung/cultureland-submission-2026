@@ -341,23 +341,23 @@
   },
   "pizzamall": {
     "kind": "official_png",
-    "source": "https://elandeats.co.kr/theme/basic/img/sub/s124_1_visual_logo.png"
+    "source": "https://static.elandeats.co.kr/f/img/ashley/logo/logo_pm.png"
   },
   "jayeon": {
     "kind": "official_png",
-    "source": "https://elandeats.co.kr/theme/basic/img/sub/s12_visual_logo.png"
+    "source": "https://static.elandeats.co.kr/f/img/ashley/logo/logo_jb.png"
   },
   "bangung": {
     "kind": "official_png",
-    "source": "https://bangoong.kr/theme/bangoong/img/hd_logo.png"
+    "source": "https://static.elandeats.co.kr/f/img/ashley/logo/logo_kr.png"
   },
   "roun": {
     "kind": "official_png",
-    "source": "https://elandeats.co.kr/theme/basic/img/sub/s123_1_visual_logo.png"
+    "source": "https://static.elandeats.co.kr/f/img/ashley/logo/logo_ru.png"
   },
   "rimini": {
     "kind": "official_png",
-    "source": "https://elandeats.co.kr/theme/basic/img/sub/s122_1_1_visual_logo.png"
+    "source": "https://static.elandeats.co.kr/f/img/ashley/logo/logo_ri.png"
   },
   "tero": {
     "kind": "official_png",
@@ -390,5 +390,13 @@
   "alpha": {
     "kind": "official_jpg",
     "source": "https://www.alpha.co.kr/image/2026main/logo.jpg"
+  },
+  "paymentwall": {
+    "kind": "official_svg",
+    "source": "https://www.paymentwall.com/uploaded/files/PW20_logo_light.svg?1"
+  },
+  "tcash": {
+    "kind": "official_png",
+    "source": "https://tcash.co.kr/common/images/logo.png"
   }
 }

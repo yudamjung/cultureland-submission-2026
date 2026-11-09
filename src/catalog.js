@@ -1,5 +1,16 @@
 import { culturelandOriginalLogos } from './culturelandOriginalLogos.js';
 
+const suppliedLogos = {
+  artbox: 'svg', alpha: 'svg', talesrunner: 'svg', blackdesert: 'svg', metalslug: 'png', lastwar: 'png',
+  geosang: 'png', smilegatepc: 'png', vfive: 'png', cheonsangbi: 'png', yapka: 'png', digimon: 'png',
+  '37games': 'png', latale: 'png', starconflict: 'png', vegagames: 'gif', samgukji2: 'png', z9star: 'png',
+  mixmaster: 'gif', darkeden: 'png', cabal: 'svg', mookhon: 'png', godius: 'png', joycity: 'png',
+  nextmarket: 'png', naddic: 'png', hanbiton: 'png', redstone: 'png', dho: 'png',
+  doonline: 'png', gnjoy: 'gif', rohan: 'svg', pizzamall: 'png', roun: 'png',
+  bangung: 'png', jayeon: 'png', rimini: 'png', paymentwall: 'svg', tcash: 'png',
+};
+const darkLogoIds = new Set(['blackdesert', 'cheonsangbi', 'cabal', 'mookhon', 'joycity', 'nextmarket', 'hanbiton', 'rohan', 'pizzamall', 'roun', 'bangung', 'jayeon', 'rimini', 'paymentwall']);
+
 // 조사 기준일 2026-11-08. status: confirmed=공식 상세 확인, partial=일반 사용법만 확인, listed=목록 등재만 확인.
 const officialNames = {
   lastwar: '라스트 워:서바이벌', metalslug: '메탈슬러그:각성', nextmarket: 'NEXT Market', ncsoft: 'Play NC', riot: '리그오브레전드',
@@ -108,7 +119,7 @@ const offline = [
 
 // 2026-11-09 원본 사용처 페이지의 154개 카드(6페이지)를 전수 대조해 기존 통합 목록에 없는 항목만 추가했다.
 const discovered = [
-  ['tncash', '틴캐시', '콘텐츠', 'coupon'],
+  ['tncash', '틴캐시', '콘텐츠', 'coupon', 'https://image.cultureland.co.kr/upload/web/usecashService/202607020915256248.png'],
   ['kakaoemoticon', '카카오이모티콘', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_카카오이모티콘.png'],
   ['howlpot', '하울팟', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_하울팟.png'],
   ['santapond', '산타의 연못', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_산타의연못.png'],
@@ -161,7 +172,7 @@ const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => {
   const officialName = officialNames[id] || name;
   return {
     id, name: officialName, cat, type, status, summary, sourceUrl, ...extra,
-    initial: officialName.slice(0, 2), logo: extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, checkedAt: extra.checkedAt || '2026-11-09',
+    initial: officialName.slice(0, 2), logo: suppliedLogos[id] ? `/assets/logos/brand-${id}.${suppliedLogos[id]}` : extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, logoOnDark: darkLogoIds.has(id), checkedAt: extra.checkedAt || '2026-11-09',
   };
 };
 

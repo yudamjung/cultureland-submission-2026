@@ -109,7 +109,7 @@ function App() {
 
 function Header({ title, back = false, onBack }) {
   return <header className="header">
-    {back ? <button className="back" onClick={onBack} aria-label="뒤로 가기">‹</button> : <span className="brand-logo"><img src={`${ASSET}figma-cultureland-logo.svg`} alt="CULTURE LAND" /></span>}
+    {back ? <button className="back" onClick={onBack} aria-label="뒤로 가기"><img src={`${ASSET}figma-ai-back.svg`} alt="" /></button> : <span className="brand-logo"><img src={`${ASSET}figma-cultureland-logo.svg`} alt="CULTURE LAND" /></span>}
     <strong>{title}</strong>
   </header>;
 }
@@ -131,7 +131,7 @@ function SearchScreen({ popularTab, setPopularTab, openResult, goBrowse, goAi })
         </div>
         <div className="popular-grid" key={popularTab}>
           {popularItems.map(({ id, label, place }) => <button className="popular-cell" key={id} onClick={() => openResult(place)}>
-            <span className="popular-logo"><img src={place.logo} alt="" /></span><strong>{label}</strong>
+            <span className={`popular-logo ${place.logoOnDark ? 'logo-on-dark' : ''}`}><img src={place.logo} alt="" /></span><strong>{label}</strong>
           </button>)}
         </div>
         <img className="popular-mascots" src={`${ASSET}figma-popular-mascots.png`} alt="" />
@@ -212,7 +212,7 @@ function BrowseScreen({ category, setCategory, where, setWhere, readyOnly, setRe
       </div>
       <p className="count">{filtered.length}곳</p>
       {filtered.length ? <div className="tiles">{list.map((p) => <button className="tile" key={p.id} onClick={() => openResult(p)}>
-        <span className="logo-placeholder"><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="task-badge">{taskLabels[p.type]}</span><small>{p.fee || p.limit || (p.status === 'listed' ? '상세 미확인' : p.status === 'partial' ? '일부 조건 미확인' : '공식 경로 확인')}</small>
+        <span className={`logo-placeholder ${p.logoOnDark ? 'logo-on-dark' : ''}`}><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="task-badge">{taskLabels[p.type]}</span><small>{p.fee || p.limit || (p.status === 'listed' ? '상세 미확인' : p.status === 'partial' ? '일부 조건 미확인' : '공식 경로 확인')}</small>
       </button>)}</div> : <p className="empty-results">{empty}</p>}
       {!expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(true)}>전체 {filtered.length}곳 보기</button>}
       {expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(false)}>접기</button>}
@@ -229,7 +229,7 @@ function ResultScreen({ place, holding, onBack, onChange, onGuide }) {
     <Header title="사용 안내" back onBack={onBack} />
     <div className="result-body">
       <div className="holding-line"><span>{holdings[holding].heading}</span><button onClick={onChange}>바꾸기</button></div>
-      <div className="merchant-head"><div className="merchant-logo"><img src={place.logo} alt="" /></div><span className="subcat">{place.cat}</span><h1>{place.name}</h1><p>{taskLabels[place.type]}</p></div>
+      <div className="merchant-head"><div className={`merchant-logo ${place.logoOnDark ? 'logo-on-dark' : ''}`}><img src={place.logo} alt="" /></div><span className="subcat">{place.cat}</span><h1>{place.name}</h1><p>{taskLabels[place.type]}</p></div>
       <div className="result-card">
         <h2><span className={`dot ${ready ? 'mint' : place.status === 'partial' ? 'navy' : ''}`} />{ready ? '현재 수단으로 이용할 수 있어요' : place.status === 'partial' ? '기본 사용 경로를 확인했어요' : '사용하려면 준비가 필요해요'}</h2>
         <p>{place.summary}</p>
@@ -297,7 +297,7 @@ function HoldingSheet({ draft, setDraft, onClose, onConfirm }) {
 function NoInfoScreen({ place, query, onBack }) {
   const suggestions = places.filter((p) => p.verified && p.id !== place?.id).slice(0, 3);
   return <><Header title="검색 결과" back onBack={onBack} /><div className="noinfo-body">
-    {place ? <><div className="noinfo-logo"><img src={place.logo} alt="" /></div><h1>{place.name}</h1><p className="noinfo-sub">{taskLabels[place.type]} · 세부 조건 확인 필요</p><div className="noinfo-card"><h2>사용 방법을 확인하지 못했어요</h2><p>{place.summary}</p><small>확인일 {formatDate(place.checkedAt)}</small></div></>
+    {place ? <><div className={`noinfo-logo ${place.logoOnDark ? 'logo-on-dark' : ''}`}><img src={place.logo} alt="" /></div><h1>{place.name}</h1><p className="noinfo-sub">{taskLabels[place.type]} · 세부 조건 확인 필요</p><div className="noinfo-card"><h2>사용 방법을 확인하지 못했어요</h2><p>{place.summary}</p><small>확인일 {formatDate(place.checkedAt)}</small></div></>
       : <><h1>검색 결과가 없어요</h1><div className="noinfo-card"><h2>‘{query || '검색어'}’는 공식 사용처 목록에서 찾지 못했어요</h2><p>이름을 다르게 입력했거나 아직 제휴하지 않은 곳일 수 있어요.</p></div><h2 className="suggest-title">비슷한 사용처</h2><div className="suggestions">{suggestions.map((p) => <span key={p.id}>{p.name}</span>)}</div></>}
     <a className="primary-button" href={place?.sourceUrl || URLS.official} target="_blank" rel="noreferrer">원문 안내 보기</a><a className="secondary-button contact" href="tel:15772111">고객센터 1577-2111</a><p className="center-hours">고객센터: 평일 08:00~17:00</p>
   </div></>;
