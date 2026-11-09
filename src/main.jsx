@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { categories, getRemaining, getSteps, holdings, isReady, parseHolding, places, searchPlaces, taskLabels } from './data';
+import { POPULAR, POPULAR_TABS } from './popular.js';
 import './style.css';
 
 const ASSET = '/assets/';
@@ -28,6 +29,11 @@ function App() {
   const [query, setQuery] = useState('');
   const [searchIds, setSearchIds] = useState(null);
   const [unknownQuery, setUnknownQuery] = useState('');
+  const [popularTab, setPopularTab] = useState('쇼핑');
+  // AI 답변 패널: 기본은 안 보이다가, 자연어 질문에 사용처가 하나만
+  // 매칭되면 검색창 아래에 뜬다. /api/ask 연결 전에는 카탈로그 키워드
+  // 검색으로 찾은 항목의 확인된 내용만으로 답하는 미리보기다.
+  const [aiAnswer, setAiAnswer] = useState(null);
   const mainRef = useRef(null);
 
   useEffect(() => {
@@ -56,14 +62,19 @@ function App() {
     navigate('guide', item);
   };
   const goBack = () => navigate(screen === 'guide' ? 'result' : 'search');
+  const isQuestion = (text) => /[?？]|돼|가능|어떻게|어디|할 수 있|되나|되나요/.test(text);
   const onSearch = (event) => {
     event.preventDefault();
     setSearchIds(null);
+    setAiAnswer(null);
     if (!query.trim()) return;
     const matches = searchPlaces(query);
     const inferred = parseHolding(query);
+    // 자연어 질문 + 사용처 하나 매칭: 바로 결과로 넘기지 않고 AI 답변
+    // 패널을 검색창 아래에 띄운다. 패널 안 링크로 결과 화면에 갈 수 있다.
+    if (matches.length === 1 && isQuestion(query)) { setAiAnswer({ place: matches[0], query: query.trim(), holding: inferred }); return; }
     if (matches.length === 1) { openResult(matches[0], inferred); return; }
-    if (matches.length > 1) { setCategory('전체'); setWhere('all'); setReadyOnly(false); setSearchIds(matches.map((p) => p.id)); setExpanded(true); return; }
+    if (matches.length > 1) { setCategory('전체'); setWhere('all'); setReadyOnly(false); setSearchIds(matches.map((p) => p.id)); setExpanded(true); navigate('browse', null); return; }
     setUnknownQuery(query.trim());
     navigate('noinfo', null);
   };
@@ -77,7 +88,8 @@ function App() {
 
   return <div className="phone-shell">
     <main ref={mainRef}>
-      {screen === 'search' && <SearchScreen {...{ category, setCategory, where, setWhere, readyOnly, setReadyOnly, expanded, setExpanded, query, setQuery, visible, holding, openResult, onSearch, searchIds, setSearchIds }} />}
+      {screen === 'search' && <SearchScreen {...{ query, setQuery, onSearch, aiAnswer, setAiAnswer, popularTab, setPopularTab, holding, openResult, goBrowse: () => { setSearchIds(null); navigate('browse', null); } }} />}
+      {screen === 'browse' && <BrowseScreen {...{ category, setCategory, where, setWhere, readyOnly, setReadyOnly, expanded, setExpanded, visible, holding, openResult, searchIds, setSearchIds, setQuery, onBack: () => navigate('search', null) }} />}
       {screen === 'result' && place && <ResultScreen place={place} holding={holding || 'voucher'} onBack={goBack} onChange={() => { setDraft(holding || 'voucher'); setSheet(true); }} onGuide={goGuide} />}
       {screen === 'guide' && place && <GuideScreen place={place} holding={holding || 'voucher'} open={openStep} setOpen={setOpenStep} onBack={goBack} onHome={() => navigate('search', null)} />}
       {screen === 'noinfo' && <NoInfoScreen place={place} query={unknownQuery} onBack={() => navigate('search', null)} />}
@@ -93,11 +105,9 @@ function Header({ title, back = false, onBack }) {
   </header>;
 }
 
-function SearchScreen({ category, setCategory, where, setWhere, readyOnly, setReadyOnly, expanded, setExpanded, query, setQuery, visible, holding, openResult, onSearch, searchIds, setSearchIds }) {
-  const list = expanded ? visible : visible.slice(0, 9);
-  const empty = readyOnly
-    ? '현재 가진 수단으로 바로 쓸 수 있는 확인된 사용처가 없어요. 수단이나 조건을 바꿔 보세요.'
-    : '이 카테고리에는 조건에 맞는 곳이 없어요. 다른 카테고리를 골라 보세요.';
+function SearchScreen({ query, setQuery, onSearch, aiAnswer, setAiAnswer, popularTab, setPopularTab, holding, openResult, goBrowse }) {
+  const byId = new Map(places.map((p) => [p.id, p]));
+  const popularItems = POPULAR[popularTab].map((item) => ({ ...item, place: byId.get(item.id) })).filter((item) => item.place);
   return <>
     <Header title="사용처 찾기" />
     <div className="search-body">
@@ -107,9 +117,53 @@ function SearchScreen({ category, setCategory, where, setWhere, readyOnly, setRe
       </section>
       <p className="search-intro">사용처 이름이나 궁금한 점을 입력하세요</p>
       <form className="search-form" onSubmit={onSearch}>
-        <input aria-label="사용처 검색" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="예: 카톡으로 받은 상품권 예스24에서 돼?" />
+        <input aria-label="사용처 검색" value={query} onChange={(e) => { setQuery(e.target.value); setAiAnswer(null); }} placeholder="예: 카톡으로 받은 상품권 예스24에서 돼?" />
         <button type="submit" aria-label="검색"><img src={`${ASSET}16-2-img.svg`} alt="" /></button>
       </form>
+      {aiAnswer && <AiAnswerPanel answer={aiAnswer} holding={holding} onOpen={(place) => { setAiAnswer(null); openResult(place, aiAnswer.holding); }} onClose={() => setAiAnswer(null)} />}
+      <h2 className="section-title">컬쳐랜드 인기 사용처</h2>
+      <div className="popular-tabs" aria-label="인기 사용처 카테고리">
+        {POPULAR_TABS.map((tab) => <button key={tab} className={`popular-tab ${popularTab === tab ? 'active' : ''}`} aria-pressed={popularTab === tab} onClick={() => setPopularTab(tab)}>{tab}</button>)}
+      </div>
+      <div className="popular-grid">
+        {popularItems.map(({ id, label, place }) => <button className="popular-cell" key={id} onClick={() => openResult(place)}>
+          <span className="logo-placeholder"><img src={place.logo} alt="" /></span><strong>{label}</strong>
+        </button>)}
+      </div>
+      <button className="primary-button popular-all" onClick={goBrowse}>전체 사용처 보기</button>
+      <p className="search-footnote">인기 사용처 {Object.values(POPULAR).flat().length}곳 · 컬쳐랜드 홈페이지 인기 사용처 기준 · 순위 없음</p>
+    </div>
+  </>;
+}
+
+// AI 답변 패널(피그마 메인 v3 예시): 기본은 안 보이다가 자연어 질문에
+// 사용처가 하나만 매칭되면 검색창 아래에 뜬다. 지금은 /api/ask 연결 전이라
+// 카탈로그에서 확인된 내용(사용처 요약 + 사용 순서)만으로 답하고,
+// "예스24 사용처 보기 ›" 링크로 결과 화면에 갈 수 있다.
+function AiAnswerPanel({ answer, holding, onOpen, onClose }) {
+  const { place } = answer;
+  const steps = place.id === 'yes24'
+    ? yesSteps.map((step) => step.title)
+    : getSteps(place, holding || 'voucher');
+  return <section className="ai-answer" aria-live="polite">
+    <div className="ai-answer-head"><span className="ai-chip">AI 답변</span><button className="ai-close" onClick={onClose} aria-label="AI 답변 닫기">×</button></div>
+    <p className="ai-answer-text"><strong>네, 돼요.</strong> {place.summary}</p>
+    <div className="step-chips">{steps.map((step, index) => <React.Fragment key={step}>{index > 0 && <span className="chip-arrow">›</span>}<span className="step-chip">{index + 1} {step}</span></React.Fragment>)}</div>
+    <button className="ai-answer-link" onClick={() => onOpen(place)}>{place.name} 사용처 보기 ›</button>
+    <p className="ai-answer-note">카탈로그에서 확인한 내용만으로 답한 미리보기예요. AI 연결 전에는 키워드 검색 결과로 답해요.</p>
+  </section>;
+}
+
+// 사용처 조회 전용 페이지(메인에서 분리). 카테고리 알약·온라인/오프라인·
+// 바로 쓸 수 있는 곳만 필터는 목록이랑 같이 여기에 있다.
+function BrowseScreen({ category, setCategory, where, setWhere, readyOnly, setReadyOnly, expanded, setExpanded, visible, holding, openResult, searchIds, setSearchIds, setQuery, onBack }) {
+  const list = expanded ? visible : visible.slice(0, 9);
+  const empty = readyOnly
+    ? '현재 가진 수단으로 바로 쓸 수 있는 확인된 사용처가 없어요. 수단이나 조건을 바꿔 보세요.'
+    : '이 카테고리에는 조건에 맞는 곳이 없어요. 다른 카테고리를 골라 보세요.';
+  return <>
+    <Header title="전체 사용처" back onBack={onBack} />
+    <div className="search-body">
       <div className="segment" aria-label="어디서">
         {[['all', '전체'], ['online', '온라인'], ['store', '오프라인']].map(([value, label]) => <button key={value} className={where === value ? 'active' : ''} aria-pressed={where === value} onClick={() => { setWhere(value); setExpanded(false); }}>{label}</button>)}
       </div>

@@ -7,7 +7,8 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "node --test"
+    "test": "node --test",
+    "index": "node scripts/index-catalog.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",
