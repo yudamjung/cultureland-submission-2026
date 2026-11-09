@@ -32,17 +32,17 @@ const game = [
 ];
 
 const direct = [
-  ['cgv', 'CGV', 'confirmed', '온라인 예매는 컬쳐캐쉬 결제. 별도 CGV 기프트카드 쿠폰 구매도 가능해요.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '문화생활', variants: '바로사용 / CGV 기프트카드 쿠폰' }],
+  ['cgv', 'CGV', 'confirmed', '온라인 예매는 컬쳐캐쉬 결제. 별도 CGV 기프트카드 쿠폰 구매도 가능해요.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '문화생활', variants: '바로사용 / CGV 기프트카드 쿠폰', offline: 'yes' }],
   ['bunjang', '번개장터', 'confirmed', '결제 단계에서 컬쳐캐쉬 조회·사용. 공식 FAQ 기준 컬쳐캐쉬 결제액의 5% 수수료.', 'https://www.cultureland.co.kr/usecash/useCash.do', { fee: '5% 수수료' }],
   ['yes24', '예스24', 'confirmed', '로그인 주문의 외부 상품권/포인트에서 컬쳐랜드상품권(컬쳐캐쉬) 선택. 10원 단위.', 'https://www.cultureland.co.kr/usecash/useCash.do'],
   ['culturemall', '컬쳐몰', 'confirmed', '컬쳐몰 상품을 선택하고 결제 단계에서 컬쳐캐쉬를 사용해요.', 'https://www.cultureland.co.kr/usecash/useCash.do'],
   ['gsshop', 'GS SHOP', 'confirmed', '컬쳐랜드 바로사용 경유 → 주문 결제에서 컬쳐캐쉬 선택. 로그인 주문만 가능.', 'https://www.cultureland.co.kr/usecash/useCash.do'],
   ['ridi', '리디북스', 'confirmed', '리디 웹에서 작품 구매 또는 리디캐시 충전 시 컬쳐랜드 문화상품권 선택.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '콘텐츠' }],
   ['db', 'DB손해보험', 'confirmed', '컬쳐랜드 경유로 보험료를 조회한 경우에만 컬쳐캐쉬 결제 가능.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '금융', limit: '증권당 30만원' }],
-  ['lottecinema', '롯데시네마', 'confirmed', '영화 예매 결제에서 컬쳐캐쉬 선택. 비회원 주문은 불가.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '문화생활' }],
-  ['aladin', '알라딘', 'confirmed', '주문 결제에서 컬쳐캐쉬 선택. 10원 단위, 비회원 주문은 불가.', 'https://www.cultureland.co.kr/usecash/useCash.do'],
-  ['kyobo', '교보문고', 'confirmed', '온라인 주문 결제에서 컬쳐캐쉬 선택. 오프라인 바코드 경로도 있어요.', 'https://www.cultureland.co.kr/usecash/useCash.do'],
-  ['megabox', '메가박스', 'confirmed', '온라인 영화 예매에서 컬쳐캐쉬 선택. 오프라인 바코드 경로도 있어요.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '문화생활' }],
+  ['lottecinema', '롯데시네마', 'confirmed', '영화 예매 결제에서 컬쳐캐쉬 선택. 비회원 주문은 불가.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '문화생활', offline: 'yes' }],
+  ['aladin', '알라딘', 'confirmed', '주문 결제에서 컬쳐캐쉬 선택. 10원 단위, 비회원 주문은 불가.', 'https://www.cultureland.co.kr/usecash/useCash.do', { offline: 'yes' }],
+  ['kyobo', '교보문고', 'confirmed', '온라인 주문 결제에서 컬쳐캐쉬 선택. 오프라인 바코드 경로도 있어요.', 'https://www.cultureland.co.kr/usecash/useCash.do', { offline: 'yes' }],
+  ['megabox', '메가박스', 'confirmed', '온라인 영화 예매에서 컬쳐캐쉬 선택. 오프라인 바코드 경로도 있어요.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '문화생활', offline: 'yes' }],
   ['kakaopage', '카카오페이지', 'confirmed', '콘텐츠 충전·구매의 컬쳐캐쉬 결제수단 이용. 화면 명칭은 로그인 뒤 확인.', 'https://www.cultureland.co.kr/usecash/useCash.do', { cat: '콘텐츠' }],
   ['hmall', '현대Hmall', 'confirmed', '컬쳐랜드 바로사용 경유 → 로그인 주문 결제에서 컬쳐캐쉬 선택.', 'https://www.cultureland.co.kr/usecash/useCash.do', { limit: '계정당 월 50만원' }],
   ['lotteshop', '롯데홈쇼핑', 'confirmed', '컬쳐랜드 경유 주문에서 컬쳐캐쉬 선택. 한도 초과분 복합결제는 불가.', 'https://www.cultureland.co.kr/usecash/useCash.do', { limit: 'ID당 월 100만원' }],
