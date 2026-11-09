@@ -88,7 +88,7 @@ function App() {
 
 function Header({ title, back = false, onBack }) {
   return <header className="header">
-    {back ? <button className="back" onClick={onBack} aria-label="뒤로 가기">‹</button> : <img className="brand-logo" src={`${ASSET}16-2-imgImg0.png`} alt="CULTURE LAND" />}
+    {back ? <button className="back" onClick={onBack} aria-label="뒤로 가기">‹</button> : <span className="brand-logo"><img src={`${ASSET}figma-cultureland-logo.svg`} alt="CULTURE LAND" /></span>}
     <strong>{title}</strong>
   </header>;
 }
@@ -103,7 +103,7 @@ function SearchScreen({ category, setCategory, where, setWhere, readyOnly, setRe
     <div className="search-body">
       <section className="hero">
         <div><h1>상품권,<br />어디서 쓰실 건가요?</h1></div>
-        <img src={`${ASSET}16-2-imgImg1.png`} alt="엄지척 캐릭터" />
+        <div className="hero-character"><img src={`${ASSET}figma-hero-character.png`} alt="컬쳐랜드 캐릭터" /></div>
       </section>
       <p className="search-intro">사용처 이름이나 궁금한 점을 입력하세요</p>
       <form className="search-form" onSubmit={onSearch}>
