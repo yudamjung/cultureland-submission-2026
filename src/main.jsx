@@ -110,14 +110,15 @@ function SearchScreen({ category, setCategory, where, setWhere, readyOnly, setRe
         <input aria-label="사용처 검색" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="예: 카톡으로 받은 상품권 예스24에서 돼?" />
         <button type="submit" aria-label="검색"><img src={`${ASSET}16-2-img.svg`} alt="" /></button>
       </form>
+      <div className="segment" aria-label="어디서">
+        {[['all', '전체'], ['online', '온라인'], ['store', '오프라인']].map(([value, label]) => <button key={value} className={where === value ? 'active' : ''} aria-pressed={where === value} onClick={() => { setWhere(value); setExpanded(false); }}>{label}</button>)}
+      </div>
       {searchIds && <button className="clear-search" onClick={() => { setSearchIds(null); setQuery(''); }}>검색 결과 지우기 ×</button>}
       <h2 className="section-title">카테고리로 찾기</h2>
       <div className="category-scroll" aria-label="카테고리">
         {categories.map((cat) => <button key={cat} className={`pill ${category === cat ? 'active' : ''}`} aria-pressed={category === cat} onClick={() => { setCategory(cat); setExpanded(false); }}>{cat}</button>)}
       </div>
-      <div className="segment" aria-label="어디서">
-        {[['all', '전체'], ['online', '온라인'], ['store', '오프라인']].map(([value, label]) => <button key={value} className={where === value ? 'active' : ''} aria-pressed={where === value} onClick={() => { setWhere(value); setExpanded(false); }}>{label}</button>)}
-      </div>
+
       <div className="ready-row">
         <div><strong>지금 바로 쓸 수 있는 곳만</strong><small>{holdings[holding || 'voucher'].name} 기준 · {holding === 'cash' ? '결제창에서 고르면 돼요' : holding === 'barcode' ? '매장에서 바코드를 보여 주세요' : '먼저 상품권을 교환해야 해요'}</small></div>
         <button className={`switch ${readyOnly ? 'on' : ''}`} role="switch" aria-checked={readyOnly} aria-label="지금 바로 쓸 수 있는 곳만" onClick={() => { setReadyOnly(!readyOnly); setExpanded(false); }}><span /></button>
@@ -128,7 +129,7 @@ function SearchScreen({ category, setCategory, where, setWhere, readyOnly, setRe
       </button>)}</div> : <p className="empty-results">{empty}</p>}
       {!expanded && visible.length > 9 && <button className="show-all" onClick={() => setExpanded(true)}>전체 {visible.length}곳 보기</button>}
       {expanded && visible.length > 9 && <button className="show-all" onClick={() => setExpanded(false)}>접기</button>}
-      <p className="search-footnote">목록 {places.length}곳 · 자료 기준일 2026.11.08</p>
+      <p className="search-footnote">원본 온라인 154개(동일 권종 통합 150개) + 오프라인 28개 · 총 {places.length}곳 · 2026.11.09</p>
     </div>
   </>;
 }

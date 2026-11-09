@@ -1,27 +1,27 @@
 {
   "lastwar": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2e/54/fc/2e54fc28-90e0-d334-2068-b073bb4f6a93/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "roblox": {
     "kind": "simple_icons",
     "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/roblox.svg"
   },
   "lordnine": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5b/a7/6b/5ba76bd1-9502-db7b-0eeb-167286dbe9a6/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "gf2": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9b/fc/9d/9bfc9d72-5fef-88fc-68c6-c52b48d1541c/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg"
   },
   "metalslug": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ac/ed/45/aced457f-dfe9-622d-fafa-c96afd27990a/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg"
   },
   "horizon": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/31/b5/83/31b583bf-10b9-f689-d624-fb1b363d6134/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "nexon": {
     "kind": "simple_icons",
@@ -32,28 +32,28 @@
     "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/steam.svg"
   },
   "nextmarket": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5b/a7/6b/5ba76bd1-9502-db7b-0eeb-167286dbe9a6/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "stove": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8d/66/39/8d66398e-8ac9-2998-0269-4ff2ba92370c/AppIcon-0-0-1x_U007emarketing-0-6-0-85-220.png/512x512bb.jpg"
   },
   "ncsoft": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/a/a6/NCSOFT_logo.svg"
   },
   "netmarble": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/52/Netmarble_Logo.svg"
   },
   "hangame": {
     "kind": "label_fallback",
     "source": null
   },
   "pmang": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://www.pmang.com"
   },
   "webzen": {
     "kind": "label_fallback",
@@ -64,8 +64,8 @@
     "source": null
   },
   "blizzard": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Blizzard_Entertainment_Logo.svg"
   },
   "riot": {
     "kind": "simple_icons",
@@ -84,128 +84,128 @@
     "source": "https://commons.wikimedia.org/wiki/File:CGV_logo.svg"
   },
   "bunjang": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b2/d0/a7/b2d0a70a-65ba-c4e7-e5e0-27fb7b61c46a/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg"
   },
   "yes24": {
     "kind": "local_svg",
     "source": "yes24-seeklogo.svg"
   },
   "culturemall": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://www.cultureland.co.kr"
   },
   "gsshop": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8b/d3/58/8bd3584e-011e-f82e-efdf-d5c44d59e7bd/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "ridi": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/51/e9/29/51e9291c-137f-0084-93a5-e64bc9c1e085/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "db": {
     "kind": "label_fallback",
     "source": null
   },
   "lottecinema": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://www.lottecinema.co.kr/NLCHS/Content/images/common/logo.png"
   },
   "aladin": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b2/b2/35/b2b23551-d4bb-04db-3a1d-24264166b8ce/AppIcon-0-0-1x_U007emarketing-0-9-0-85-220.png/512x512bb.jpg"
   },
   "kyobo": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/5/58/Kyobo_Books_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original"
   },
   "megabox": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://img.megabox.co.kr/static/pc/images/common/ci/logo_new2.png"
   },
   "kakaopage": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/02/9f/ea/029fea19-5013-b1cb-9870-9232e8235c15/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "hmall": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/27/82/af/2782af9c-0bd2-457c-20aa-dcef30a8acf0/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg"
   },
   "lotteshop": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5c/b2/a1/5cb2a154-15ed-d9d1-036a-415918e33d04/AppIcon-0-0-1x_U007emarketing-0-11-0-sRGB-85-220.png/512x512bb.jpg"
   },
   "daiso": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://cdn.daisomall.co.kr/file/CM/daisologo_1.91-1.png"
   },
   "coupang": {
     "kind": "local_svg",
     "source": "Coupang_logo.svg"
   },
   "otocash": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple114/v4/ca/13/86/ca1386ce-bb18-71e1-cde4-2bb56f0c2932/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg"
   },
   "npay": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/65/9c/f7/659cf71d-3b47-0535-b6dd-f2696142c249/AppIcon-0-0-1x_U007emarketing-0-8-0-sRGB-85-220.png/512x512bb.jpg"
   },
   "gln": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://framerusercontent.com/images/ENwIMK5Fn4any1crwtHxkjRIIek.png"
   },
   "welcome": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7c/e9/d0/7ce9d070-af0d-0c78-2875-6622d621c0f9/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg"
   },
   "dalpoint": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f6/9c/0c/f69c0c21-b1af-835b-2432-086e99944e39/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg"
   },
   "cjone": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f3/2d/e1/f32de1bb-2bb0-48bf-03ac-6eb69b7a58b1/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "payco": {
     "kind": "label_fallback",
     "source": null
   },
   "ssg": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/65/aa/36/65aa365d-b13a-5af7-4596-47b06102e503/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "smilemoney": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9e/c5/0c/9ec50ce7-9cb1-b3a9-cf46-c9de4145002f/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "happypoint": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f3/41/ec/f341ecfe-ea6f-e97b-592c-6321d52da01f/AppIcon_Live-0-0-1x_U007ephone-0-1-0-85-220.png/512x512bb.jpg"
   },
   "11pay": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/65/6e/a1/656ea14b-0c1d-2ea2-2eef-40ac325f9172/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-85-220.png/512x512bb.jpg"
   },
   "lpoint": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fb/01/d3/fb01d3cb-de46-b00a-5a40-76211c4142cc/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg"
   },
   "hpoint": {
     "kind": "label_fallback",
     "source": null
   },
   "mobilcard": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a8/3a/9d/a83a9dd3-cc79-d6db-fa23-73085c9a7cdf/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.png/512x512bb.jpg"
   },
   "paybook": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/86/96/d2/8696d2d0-2219-ceff-8766-10510744eb12/AppIcon-0-0-1x_U007ephone-0-1-sRGB-85-220.png/512x512bb.jpg"
   },
   "apartment": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d1/76/e1/d176e114-3b0d-1382-67ae-3f2435976139/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg"
   },
   "olive": {
     "kind": "local_svg",
@@ -216,40 +216,40 @@
     "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tiktok.svg"
   },
   "shinsegae": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Shinsegae_logo.svg"
   },
   "lotte": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Lotte_logo.svg"
   },
   "soop": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://res.sooplive.com/images/mobile/afreeca_mobile.png"
   },
   "webtoon": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "simple_icons",
+    "source": "https://simpleicons.org/icons/webtoon"
   },
   "emart": {
     "kind": "wikimedia_svg",
     "source": "https://commons.wikimedia.org/wiki/File:Emart%20Logo.svg"
   },
   "cjgift": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/89/CJ_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original"
   },
   "cjmarket": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5e/98/d2/5e98d240-615f-be6a-40eb-43ffe1080183/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg"
   },
   "cjfood": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/89/CJ_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original"
   },
   "smilegift": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a9/93/0b/a9930b8a-1d36-7e41-6adf-d2655fed432c/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg"
   },
   "ikea": {
     "kind": "simple_icons",
@@ -264,40 +264,40 @@
     "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/starbucks.svg"
   },
   "ediya": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/9/92/Ediya_Coffee_logo.svg"
   },
   "tdata": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/e7/92/16e79290-893e-3b08-41e4-c783dcb28428/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "troaming": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/e7/92/16e79290-893e-3b08-41e4-c783dcb28428/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "tdirect": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/16/e7/92/16e79290-893e-3b08-41e4-c783dcb28428/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "yogurt": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/75/39/5d/75395de8-2fcd-0484-bfde-52958e34c6ed/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg"
   },
   "jaws": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_jpg",
+    "source": "https://www.jawsfood.co.kr/images/common/logo_share.jpg"
   },
   "theborn": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_svg",
+    "source": "https://www.theborn.co.kr"
   },
   "hongroo": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://cdn-pro-web-211-225.cdn-nhncommerce.com/hongruizhen2_godomall_com/data/skin/front/moment/img/banner/1bb87d41d15fe27b500a4bfcde01bb0e_58717.png"
   },
   "kgc": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_jpg",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2d/46/0a/2d460af3-abe6-e42a-021c-dbd0f91fd645/AppIcon-0-0-1x_U007emarketing-0-5-85-220.jpeg/512x512bb.jpg"
   },
   "cu": {
     "kind": "wikimedia_svg",
@@ -316,79 +316,79 @@
     "source": "https://commons.wikimedia.org/wiki/File:Emart%2024%20logo.svg"
   },
   "artbox": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d8/48/28/d848281d-02c7-3eed-0399-b1efe580935f/AppIcon-0-0-1x_U007emarketing-0-6-0-0-85-220.png/512x512bb.jpg"
   },
   "hottracks": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "wikimedia_svg",
+    "source": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Kyobo_Hottracks_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original"
   },
   "phoenixpyeongchang": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_svg",
+    "source": "https://phoenixhnr.co.kr/images/ko/com/logo_pp_wh.svg"
   },
   "phoenixseopjikoji": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_svg",
+    "source": "https://phoenixhnr.co.kr/images/ko/com/logo_pi_wh.svg"
   },
   "ashley": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cf/a7/ae/cfa7aef7-b91b-025d-4069-185ba1ea44ec/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "ashleyqueens": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cf/a7/ae/cfa7aef7-b91b-025d-4069-185ba1ea44ec/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg"
   },
   "pizzamall": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://elandeats.co.kr/theme/basic/img/sub/s124_1_visual_logo.png"
   },
   "jayeon": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://elandeats.co.kr/theme/basic/img/sub/s12_visual_logo.png"
   },
   "bangung": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://bangoong.kr/theme/bangoong/img/hd_logo.png"
   },
   "roun": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://elandeats.co.kr/theme/basic/img/sub/s123_1_visual_logo.png"
   },
   "rimini": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://elandeats.co.kr/theme/basic/img/sub/s122_1_1_visual_logo.png"
   },
   "tero": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://terookatsu.com/RAD/PEG/logo_16938088211689.png"
   },
   "foodempire": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_jpg",
+    "source": "http://www.ourhomehospitality.com/hos_img/1714351514154.jpg"
   },
   "xingkai": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_jpg",
+    "source": "http://www.ourhomehospitality.com/hos_img/1418845307357.jpg"
   },
   "kisara": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_jpg",
+    "source": "http://www.ourhomehospitality.com/hos_img/1720165813433.JPG"
   },
   "dalkomm": {
     "kind": "official_svg",
     "source": "https://dalkomm.com/@resource/images/com/dalkomm.svg?v=20230717"
   },
   "beansbins": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "http://www.beansbins.com/data/file/logo_1.png"
   },
   "newyorkburger": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_png",
+    "source": "https://www.newyorkburger.co.kr/ny/includes/images/ny_logo1.png"
   },
   "alpha": {
-    "kind": "label_fallback",
-    "source": null
+    "kind": "official_jpg",
+    "source": "https://www.alpha.co.kr/image/2026main/logo.jpg"
   }
 }

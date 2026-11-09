@@ -1,4 +1,13 @@
+import { culturelandOriginalLogos } from './culturelandOriginalLogos.js';
+
 // 조사 기준일 2026-11-08. status: confirmed=공식 상세 확인, partial=일반 사용법만 확인, listed=목록 등재만 확인.
+const officialNames = {
+  lastwar: '라스트 워:서바이벌', metalslug: '메탈슬러그:각성', nextmarket: 'NEXT Market', ncsoft: 'Play NC', riot: '리그오브레전드',
+  psstore: 'PS Store', yes24: 'yes24', gln: 'G앱머니', welcome: '웰컴페이', cjone: 'CJ ONE', payco: '페이코',
+  ssg: 'SSG PAY', lpoint: 'L.POINT', hpoint: 'H.Point', paybook: '페이북', apartment: '아파트아이', olive: '올리브영',
+  shinsegae: '신세계모바일(키오스크형)', lotte: '롯데모바일교환권(지류교환형)', emart: '이마티콘', cjmarket: 'CJ 더마켓',
+  ikea: 'IKEA', starbucks: '스타벅스', tdata: 'SK telecom', troaming: 'T로밍',
+};
 const game = [
   ['lastwar', '라스트워: 서바이벌', 'confirmed', 'UID 로그인 → 상품 선택 → Cultureland 결제. 실제 결제창은 확인하지 않았어요.', 'https://m.cultureland.co.kr/game/useGuide.do?gmsv=lastwar'],
   ['roblox', '로블록스', 'confirmed', '웹에서 Robux 선택 → 기타 → Culture Land 로고의 문화상품권. 기프트카드는 별도 경로예요.', 'https://m.cultureland.co.kr/game/useGuide.do?gmsv=roblox'],
@@ -97,16 +106,71 @@ const offline = [
   ['beansbins', 'BEANSBINS COFFEE', '외식'], ['newyorkburger', 'NEW YORK BURGER', '외식'], ['alpha', 'Alpha', '쇼핑'],
 ];
 
-const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => ({
-  id, name, cat, type, status, summary, sourceUrl, ...extra,
-  initial: name.slice(0, 2), logo: `/assets/logos/${id}.svg`, checkedAt: '2026-11-08',
-});
+// 2026-11-09 원본 사용처 페이지의 154개 카드(6페이지)를 전수 대조해 기존 통합 목록에 없는 항목만 추가했다.
+const discovered = [
+  ['tncash', '틴캐시', '콘텐츠', 'coupon'],
+  ['kakaoemoticon', '카카오이모티콘', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_카카오이모티콘.png'],
+  ['howlpot', '하울팟', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_하울팟.png'],
+  ['santapond', '산타의 연못', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_산타의연못.png'],
+  ['overwatch', '오버워치', '게임', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_오버워치.png'],
+  ['itemmania', '아이템매니아', '게임', 'direct'], ['toonations', '투네이션', '콘텐츠', 'direct'],
+  ['ffxiv', '파이널판타지14', '게임', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_파이널판타지.png'],
+  ['crack', '크랙', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_크랙.png'],
+  ['lezhin', '레진코믹스', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_레진코믹스.png'],
+  ['itembay', '아이템베이', '게임', 'direct'], ['galaxystore', '갤럭시스토어', '콘텐츠', 'direct'],
+  ['onestore', '원스토어', '콘텐츠', 'direct'], ['geosang', '거상', '게임', 'direct'],
+  ['juneinter', '준인터', '게임', 'direct'], ['masangsoft', '마상소프트', '게임', 'direct'],
+  ['talesrunner', '테일즈런너', '게임', 'direct'], ['blackdesert', '검은 사막', '게임', 'direct'],
+  ['smilegatepc', '스마일게이트PC방', '게임', 'direct'], ['pokipoki', '포키포키', '게임', 'direct'],
+  ['winjoy', '윈조이게임', '게임', 'direct'], ['vfive', '브이파이브게임즈', '게임', 'direct'],
+  ['cheonsangbi', '천상비', '게임', 'direct'], ['yapka', '얍카', '게임', 'direct'],
+  ['adventurer', '승부사 온라인', '게임', 'direct'], ['digimon', '디지몬 슈퍼럼블', '게임', 'direct'],
+  ['37games', '37games', '게임', 'direct'], ['itemthanks', '아이템땡스', '게임', 'direct'],
+  ['vfun', 'vfun', '게임', 'direct'], ['latale', '라테일', '게임', 'direct'],
+  ['mir2', '미르의전설2', '게임', 'direct'], ['mir3', '미르의전설3', '게임', 'direct'],
+  ['starconflict', 'Star Conflict', '게임', 'direct'], ['maplestory', '메이플스토리', '게임', 'direct'],
+  ['vegagames', '베가게임즈', '게임', 'direct'], ['samgukji2', '온라인삼국지2', '게임', 'direct'],
+  ['z9star', '내 맘대로 Z9별', '게임', 'direct'], ['mixmaster', '믹스마스터', '게임', 'direct'],
+  ['darkeden', '다크에덴', '게임', 'direct'], ['cabal', '카발온라인', '게임', 'direct'],
+  ['mookhon', '묵혼', '게임', 'direct'], ['godius', 'GODIUS', '게임', 'direct'],
+  ['joycity', '조이시티', '게임', 'direct'], ['daumgame', 'Daum 게임', '게임', 'direct'],
+  ['linegames', '라인게임즈', '게임', 'direct'], ['naddic', '나딕게임즈', '게임', 'direct'],
+  ['hanbiton', '한빛온', '게임', 'direct'], ['redstone', '붉은보석', '게임', 'direct'],
+  ['dho', '대항해시대', '게임', 'direct'], ['worldoftanks', '월드오브탱크', '게임', 'direct'],
+  ['doonline', '디오', '게임', 'direct'], ['gnjoy', 'GNJOY', '게임', 'direct'], ['rohan', '로한', '게임', 'direct'],
+  ['crepe', '크레페', '콘텐츠', 'direct'], ['sharebox', '쉐어박스', '콘텐츠', 'direct'],
+  ['onestory', '원스토리', '콘텐츠', 'direct'], ['fanding', '팬딩', '콘텐츠', 'direct'],
+  ['popkontv', '팝콘티비', '콘텐츠', 'direct'], ['netfile', '넷파일', '콘텐츠', 'direct'],
+  ['ssadafile', '싸다파일', '콘텐츠', 'direct'], ['filecity', '파일시티', '콘텐츠', 'direct'],
+  ['ondisk', '온디스크', '콘텐츠', 'direct'], ['wedisk', '위디스크', '콘텐츠', 'direct'],
+  ['pdpop', '피디팝', '콘텐츠', 'direct'], ['mgame', '엠게임', '게임', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/202607020914206247.png'],
+  ['bugsmusic', '벅스뮤직', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/logo_벅스뮤직.png'],
+  ['pandalive', '판다라이브', '콘텐츠', 'direct'],
+  ['fitcollabo', '핏콜라보', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/202607020915536248.png'],
+  ['yesfile', '예스파일', '콘텐츠', 'direct'], ['spoonradio', '스푼라디오', '콘텐츠', 'direct'],
+  ['filejo', '파일조', '콘텐츠', 'direct'],
+  ['bomtoon', '봄툰', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/202607020914016247.png'],
+  ['munpia', '문피아', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/202607020913026246.png'],
+  ['toptoon', '탑툰', '콘텐츠', 'direct'], ['idfarm', '아이디팜', '게임', 'direct'],
+  ['mrblue', '미스터블루', '콘텐츠', 'direct', 'https://image.cultureland.co.kr/upload/web/usecashService/202607020913416246.png'],
+  ['filesun', '파일썬', '콘텐츠', 'direct'], ['smatouch', '스마터치', '콘텐츠', 'direct'],
+  ['paymentwall', '페이먼트월', '콘텐츠', 'direct'], ['tcash', '티캐시', '콘텐츠', 'direct'],
+];
+
+const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => {
+  const officialName = officialNames[id] || name;
+  return {
+    id, name: officialName, cat, type, status, summary, sourceUrl, ...extra,
+    initial: officialName.slice(0, 2), logo: extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, checkedAt: '2026-11-09',
+  };
+};
 
 export const catalog = [
   ...game.map(([id, name, status, summary, sourceUrl, extra]) => make(id, name, '게임', 'direct', status, summary, sourceUrl, extra)),
   ...direct.map(([id, name, status, summary, sourceUrl, extra]) => make(id, name, '쇼핑', 'direct', status, summary, sourceUrl, extra)),
   ...convert.map(([id, name, status, summary, sourceUrl, extra]) => make(id, name, '금융', 'convert', status, summary, sourceUrl, extra)),
   ...coupon.map(([id, name, cat, summary, code, extra]) => make(id, name, cat, 'coupon', 'partial', summary, `https://m.cultureland.co.kr/cpn/cpnApp.do?cpgm=${code}`, extra)),
+  ...discovered.map(([id, name, cat, type, logo]) => make(id, name, cat, type, 'partial', '컬쳐랜드 원본 사용처 목록에서 확인했어요. 세부 결제 조건은 실제 이용 전에 원문 안내를 확인하세요.', 'https://www.cultureland.co.kr/usecash/useCash.do', { logo: logo || '/assets/logos/unknown.svg' })),
   ...offline.map(([id, name, cat]) => make(id, name, cat, 'store', 'partial', '컬쳐랜드상품권 바코드 또는 컬쳐랜드 앱 바코드 결제 경로. 브랜드별 제외 매장은 방문 전 확인하세요.', 'https://www.cultureland.co.kr/voucher/voucheruse.do', { offline: 'yes' })),
 ];
 
