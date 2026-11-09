@@ -236,6 +236,7 @@ function ResultScreen({ place, holding, onBack, onChange, onGuide }) {
         {place.variants && <p className="result-tip">선택 경로: {place.variants}</p>}
         <div className="step-chips">{steps.map((step, index) => { const done = !remaining.includes(step); const current = remaining[0] === step; return <React.Fragment key={step}>{index > 0 && <span className="chip-arrow">›</span>}<span className={`step-chip ${done ? 'done' : current ? 'current' : ''}`}>{done ? '✓' : `${index + 1}`} {step}</span></React.Fragment>; })}</div>
       </div>
+      {place.guideImage && <a className="secondary-button guide-image-link" href={place.guideImage} target="_blank" rel="noreferrer">공식 이미지 가이드 크게 보기 ↗</a>}
       {place.offline === 'yes' && place.type === 'direct' && <p className="cgv-note">오프라인 매장에서는 상품권 바코드 또는 컬쳐랜드 앱 바코드 결제 경로도 있어요. 일부 매장은 제외될 수 있습니다.</p>}
       {place.status === 'partial' && <p className="cgv-note">세부 수수료·한도·사용 가능 범위는 확인되지 않았을 수 있어요. 실제 이용 전에 연결된 안내를 확인하세요.</p>}
       {place.type === 'coupon' && <p className="cgv-note">컬쳐랜드 판매권의 유효기간·환불·제외 매장 등 개별 조건은 로그인 전 확인되지 않았어요.</p>}

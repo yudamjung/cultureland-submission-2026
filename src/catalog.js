@@ -55,7 +55,7 @@ const convert = [
   ['npay', 'Npay 포인트', 'confirmed', '6% 차감, 최소 1천원. 적립 포인트로 전환되며 취소·현금인출 불가.', 'https://www.cultureland.co.kr/conversion/naverpay_bridge.do', { fee: '6% 차감' }],
   ['gln', 'G앱머니(해외결제)', 'confirmed', '8% 차감, 최소 1천원·1천원 단위. 해외결제 범위는 GLN 정책 확인.', 'https://www.cultureland.co.kr/conversion/gln_bridge.do', { fee: '8% 차감' }],
   ['welcome', '웰컴머니', 'partial', '웰컴페이 제휴처·제로페이 가맹점에서 사용. 전환 수수료·한도는 미확인.', 'https://play.google.com/store/apps/details?id=com.welcomepayments.welcomepay'],
-  ['dalpoint', '달포인트', 'listed', '전환 목록 등재만 확인. 서비스 정체·수수료·한도·사용처 모두 공식 미확인.', 'https://m.cultureland.co.kr/convs/convsMain.do'],
+  ['dalpoint', '달포인트', 'partial', '컬쳐랜드 공식 이미지에 달콘 앱에서 포인트 충전 → 컬쳐랜드 조회 → 결제금액 확인·결제 → 달포인트 사용 절차가 안내돼요. 잔여 포인트 환불 신청 화면도 포함돼요. 현재 수수료·한도·환불 조건은 전환 화면에서 확인하세요.', 'https://image.cultureland.co.kr/upload/editor/202512111754501857.png', { guideImage: 'https://image.cultureland.co.kr/upload/editor/202512111754501857.png', checkedAt: '2026-11-10' }],
   ['cjone', 'CJ ONE 포인트', 'confirmed', '공식 제휴 안내 기준 수수료 5%, 1천P 단위, 월 최대 200만P.', 'https://www.cjone.com/cjmweb/point-card/brand/detail.do?brnd_cd=0394&coopco_cd=7000&mcht_no=0394', { fee: '5% 수수료' }],
   ['payco', 'PAYCO', 'confirmed', '6% 별도 부과. 적립포인트로 전환, 취소·계좌환불·재전환 불가.', 'https://www.cultureland.co.kr/conversion/payco_bridge.do', { fee: '6% 별도' }],
   ['ssg', 'SSG MONEY', 'confirmed', '5% 별도 부과. 신세계 계열 등 SSG MONEY 가맹점에서 사용.', 'https://www.cultureland.co.kr/conversion/ssgpay_bridge.do', { fee: '5% 별도' }],
@@ -161,7 +161,7 @@ const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => {
   const officialName = officialNames[id] || name;
   return {
     id, name: officialName, cat, type, status, summary, sourceUrl, ...extra,
-    initial: officialName.slice(0, 2), logo: extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, checkedAt: '2026-11-09',
+    initial: officialName.slice(0, 2), logo: extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, checkedAt: extra.checkedAt || '2026-11-09',
   };
 };
 

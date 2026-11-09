@@ -664,6 +664,10 @@ a {
     line-height: 1.6
 }
 
+.guide-image-link {
+    margin-top: 14px
+}
+
 .cautions {
     padding: 17px 4px 0
 }

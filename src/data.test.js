@@ -16,6 +16,10 @@ test('조사 목록과 오프라인 중복 통합', () => {
   assert.equal(places.filter(({ sourceUrl }) => sourceUrl.endsWith('/usecash/useCash.do')).length, 95);
   assert.equal(places.find(({ id }) => id === 'olive').name, '올리브영');
   assert.equal(places.find(({ id }) => id === 'ssg').name, 'SSG PAY');
+  const dalpoint = places.find(({ id }) => id === 'dalpoint');
+  assert.equal(dalpoint.status, 'partial');
+  assert.equal(dalpoint.guideImage, dalpoint.sourceUrl);
+  assert.match(dalpoint.summary, /달콘 앱/);
 });
 
 test('보유 수단에 따른 CGV와 매장 경로', () => {
