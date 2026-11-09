@@ -72,7 +72,7 @@ export default async function handler(req, res) {
 
   const { entries } = loadVectors();
   if (entries.length === 0) {
-    return res.status(503).json({ error: 'VECTORS_NOT_READY', message: '사용처 벡터가 아직 만들어지지 않았어요. npm run index를 실행하세요.' });
+    return res.status(503).json({ error: 'VECTORS_NOT_READY', message: 'AI 사용처 데이터가 아직 준비되지 않았어요.' });
   }
 
   const k = Number(process.env.AI_TOP_K || 5);
@@ -118,6 +118,9 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error('[api/ask]', err instanceof Error ? err.message : err);
+    if (/credit_balance_exhausted|insufficient_quota|no credits remaining/i.test(String(err))) {
+      return res.status(503).json({ error: 'AI_CREDITS_EXHAUSTED', message: 'AI API 크레딧이 소진되었어요. 결제 잔액을 확인해 주세요.' });
+    }
     return res.status(502).json({ error: 'UPSTREAM_ERROR', message: 'AI 검색이 잠시 안 돼요. 나중에 다시 시도해주세요.' });
   }
 }

@@ -104,3 +104,19 @@ test('api/ask: 잘못된 요청은 400, POST가 아니면 405', async () => {
   await handler(getReq, res2);
   assert.equal(res2.code, 405);
 });
+
+test('api/ask: 사용처 벡터가 비어 있으면 준비 중 오류를 반환한다', async () => {
+  const saved = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = 'test-key';
+  try {
+    const req = { method: 'POST', body: { question: '예스24에서 쓸 수 있나요?' }, headers: {}, socket: { remoteAddress: '127.0.0.1-test-vectors' } };
+    const res = mockRes();
+    await handler(req, res);
+    assert.equal(res.code, 503);
+    assert.equal(res.payload.error, 'VECTORS_NOT_READY');
+    assert.doesNotMatch(res.payload.message, /npm/);
+  } finally {
+    if (saved === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = saved;
+  }
+});
