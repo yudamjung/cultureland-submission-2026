@@ -37,7 +37,7 @@ export function buildChunkText(place) {
   if (place.fee) lines.push(`수수료: ${place.fee}`);
   if (place.limit) lines.push(`한도: ${place.limit}`);
   if (place.variants) lines.push(`권종: ${place.variants}`);
-  if (place.offline === 'yes') lines.push('오프라인 바코드 결로도 가능 (브랜드별 제외 매장 확인 필요)');
+  if (place.offline === 'yes') lines.push('오프라인 바코드 결제로도 가능 (브랜드별 제외 매장 확인 필요)');
   lines.push(`출처: ${place.sourceUrl}`);
   return lines.join('\n');
 }
