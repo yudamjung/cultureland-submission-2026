@@ -1,5 +1,31 @@
 import { catalog, offlineIds } from './catalog.js';
 export const categories = ['전체', '쇼핑', '게임', '콘텐츠', '문화생활', '외식', '금융'];
+export const browseTabs = {
+  online: ['금융', '백화점·마트', '외식', '영화·OTT·게임', '뷰티·건강', '취미·여가·학습'],
+  store: ['카페·베이커리', '레스토랑', '문화생활', '생활 편의'],
+};
+export const browseSubtabs = {
+  금융: ['전체', '간편결제', '멤버십/포인트'],
+  '백화점·마트': ['전체', '백화점', '마트'],
+  외식: ['전체', '카페/디저트', '식사'],
+  '영화·OTT·게임': ['전체', '콘텐츠 이용권', '영화', '게임'],
+  '뷰티·건강': ['전체'],
+  '취미·여가·학습': ['전체', '기타생활/서비스', '데이터/로밍', '도서'],
+};
+const browseName = {
+  '영화·OTT·게임': '영화·컨텐츠·게임',
+  '콘텐츠 이용권': '컨텐츠 이용권',
+  '멤버십/포인트': '멤버십·포인트',
+  '카페/디저트': '카페·디저트',
+  '기타생활/서비스': '기타 생활·서비스',
+  '데이터/로밍': '데이터·로밍',
+};
+export function browseMatches(place, group, subgroup = '전체') {
+  return place.groups.some((path) => {
+    const [top, detail] = path.split('/');
+    return top === (browseName[group] || group) && (subgroup === '전체' || detail === (browseName[subgroup] || subgroup));
+  });
+}
 export const holdings = {
   voucher: { name: '컬쳐랜드 모바일 금액권', detail: '12자리 번호', heading: '컬쳐랜드 모바일 금액권 기준', start: 1 },
   barcode: { name: '컬쳐랜드 상품권 바코드', detail: '16자리 번호', heading: '컬쳐랜드 상품권 바코드 (교환 완료) 기준', start: 2 },

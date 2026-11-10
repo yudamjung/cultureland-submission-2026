@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 import handler from './api/ask.js';
 
 export default defineConfig(({ mode }) => ({
+  esbuild: { jsx: 'automatic' },
   plugins: [{
     name: 'local-ai-api',
     configureServer(server) {

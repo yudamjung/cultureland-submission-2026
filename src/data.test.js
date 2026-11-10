@@ -3,7 +3,17 @@ import { existsSync } from 'node:fs';
 import { test } from 'node:test';
 import { offlineIds } from './catalog.js';
 import { culturelandOriginalLogos } from './culturelandOriginalLogos.js';
-import { getSteps, isReady, places } from './data.js';
+import { browseMatches, browseTabs, getSteps, isReady, places } from './data.js';
+
+test('온라인·오프라인 필터가 모든 사용처를 분류하고 하위 탭과 맞는다', () => {
+  for (const mode of ['online', 'store']) {
+    const candidates = places.filter((place) => mode === 'store' ? place.offline === 'yes' : place.online === 'yes');
+    assert.ok(candidates.every((place) => browseTabs[mode].some((group) => browseMatches(place, group))));
+  }
+  assert.equal(browseMatches(places.find(({ id }) => id === 'dalkomm'), '카페·베이커리'), true);
+  assert.equal(browseMatches(places.find(({ id }) => id === 'troaming'), '취미·여가·학습', '데이터/로밍'), true);
+  assert.equal(browseMatches(places.find(({ id }) => id === 'npay'), '금융', '간편결제'), true);
+});
 
 test('조사 목록과 오프라인 중복 통합', () => {
   assert.equal(places.length, 178);

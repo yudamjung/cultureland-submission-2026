@@ -1,1 +1,4 @@
-{"functions":{"api/ask.js":{"includeFiles":"data/catalog-vectors.json"}}}
+{
+  "functions": { "api/ask.js": { "includeFiles": "data/catalog-vectors.json" } },
+  "rewrites": [{ "source": "/((?!api/|assets/).*)", "destination": "/index.html" }]
+}
