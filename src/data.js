@@ -21,7 +21,7 @@ export const taskLabels = {
 export const places = catalog.map((place) => ({
   online: place.type === 'store' ? 'unknown' : 'yes',
   verified: place.status === 'confirmed',
-  source: place.type === 'store' ? '사용자 제공 오프라인 목록·컬쳐랜드 일반 사용법' : place.sourceUrl.includes('cultureland.co.kr') ? '컬쳐랜드 공식 안내' : '제휴사 안내·조사 자료',
+  source: place.type === 'store' ? (place.sourceUrl === 'https://www.cultureland.co.kr/voucher/voucheruse.do' ? '사용자 제공 오프라인 목록·컬쳐랜드 일반 사용법' : '컬쳐랜드 공식 안내') : place.sourceUrl.includes('cultureland.co.kr') ? '컬쳐랜드 공식 안내' : '제휴사 안내·조사 자료',
   ...place,
   offline: offlineIds.includes(place.id) ? 'yes' : 'unknown',
 }));

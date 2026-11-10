@@ -1,7 +1,7 @@
 import { culturelandOriginalLogos } from './culturelandOriginalLogos.js';
 
 const suppliedLogos = {
-  artbox: 'svg', alpha: 'svg', talesrunner: 'svg', blackdesert: 'svg', metalslug: 'png', lastwar: 'png',
+  artbox: 'svg', talesrunner: 'svg', blackdesert: 'svg', metalslug: 'png', lastwar: 'png',
   geosang: 'png', smilegatepc: 'png', vfive: 'png', cheonsangbi: 'png', yapka: 'png', digimon: 'png',
   '37games': 'png', latale: 'png', starconflict: 'png', vegagames: 'gif', samgukji2: 'png', z9star: 'png',
   mixmaster: 'gif', darkeden: 'png', cabal: 'svg', mookhon: 'png', godius: 'png', joycity: 'png',
@@ -51,15 +51,6 @@ const IA = {
       "알라딘중고서점"
     ]
   },
-  "alpha": {
-    "groups": [
-      "문화생활"
-    ],
-    "aliases": [
-      "알파",
-      "알파문구"
-    ]
-  },
   "apartment": {
     "groups": [
       "취미·여가·학습/기타 생활·서비스"
@@ -70,7 +61,7 @@ const IA = {
       "문화생활"
     ],
     "aliases": [
-      "아트박스"
+      "ARTBOX"
     ]
   },
   "ashley": {
@@ -78,7 +69,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "애슐리"
+      "ASHLEY"
     ]
   },
   "ashleyqueens": {
@@ -86,7 +77,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "애슐리퀸즈"
+      "ASHLEY QUEENS"
     ]
   },
   "bangung": {
@@ -99,7 +90,8 @@ const IA = {
       "카페·베이커리"
     ],
     "aliases": [
-      "빈스빈스커피"
+      "BEANSBINS COFFEE",
+      "BEANSBINS"
     ]
   },
   "blackdesert": {
@@ -148,6 +140,13 @@ const IA = {
       "영화·컨텐츠·게임/게임"
     ]
   },
+  "cinemacenter": {
+    "groups": [
+      "문화생활"
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/barcodeBrandList.do",
+    "checkedAt": "2026-11-11"
+  },
   "cjfood": {
     "groups": [
       "외식/식사"
@@ -192,7 +191,15 @@ const IA = {
   "cu": {
     "groups": [
       "생활 편의"
-    ]
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/exceptBarcode.do"
+  },
+  "culinarysquare": {
+    "groups": [
+      "레스토랑"
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/barcodeBrandList.do",
+    "checkedAt": "2026-11-11"
   },
   "culturemall": {
     "groups": [
@@ -212,7 +219,8 @@ const IA = {
       "카페·베이커리"
     ],
     "aliases": [
-      "달콤커피"
+      "Dal.Komm",
+      "DALKOMM"
     ]
   },
   "dalpoint": {
@@ -279,7 +287,8 @@ const IA = {
   "emart24": {
     "groups": [
       "생활 편의"
-    ]
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/exceptBarcode.do"
   },
   "fanding": {
     "groups": [
@@ -316,7 +325,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "푸드엠파이어"
+      "Food Empire"
     ]
   },
   "galaxystore": {
@@ -360,7 +369,8 @@ const IA = {
   "gs25": {
     "groups": [
       "생활 편의"
-    ]
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/exceptBarcode.do"
   },
   "gsshop": {
     "groups": [
@@ -405,7 +415,7 @@ const IA = {
       "문화생활"
     ],
     "aliases": [
-      "핫트랙스"
+      "HOTTRACKS"
     ]
   },
   "howlpot": {
@@ -481,14 +491,6 @@ const IA = {
     "groups": [
       "뷰티·건강",
       "취미·여가·학습/기타 생활·서비스"
-    ]
-  },
-  "kisara": {
-    "groups": [
-      "레스토랑"
-    ],
-    "aliases": [
-      "키사라"
     ]
   },
   "kyobo": {
@@ -614,6 +616,13 @@ const IA = {
       "문피아"
     ]
   },
+  "museumfoundation": {
+    "groups": [
+      "문화생활"
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/barcodeBrandList.do",
+    "checkedAt": "2026-11-11"
+  },
   "naddic": {
     "groups": [
       "영화·컨텐츠·게임/게임"
@@ -639,7 +648,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "뉴욕버거"
+      "NEW YORK BURGER"
     ]
   },
   "nexon": {
@@ -719,30 +728,24 @@ const IA = {
       "영화·컨텐츠·게임/컨텐츠 이용권"
     ]
   },
-  "phoenixpyeongchang": {
+  "phoenixresort": {
     "groups": [
       "문화생활"
     ],
     "aliases": [
       "피닉스 평창",
-      "휘닉스 평창"
-    ]
-  },
-  "phoenixseopjikoji": {
-    "groups": [
-      "문화생활"
-    ],
-    "aliases": [
       "피닉스 섭지코지",
-      "휘닉스 제주"
-    ]
+      "휘닉스 리조트"
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/barcodeBrandList.do",
+    "checkedAt": "2026-11-11"
   },
   "pizzamall": {
     "groups": [
       "레스토랑"
     ],
     "aliases": [
-      "피자몰"
+      "Pizza Mall"
     ]
   },
   "pmang": {
@@ -783,7 +786,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "리미니"
+      "RIMINI"
     ]
   },
   "riot": {
@@ -810,7 +813,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "로운"
+      "로운 샤브샤브"
     ]
   },
   "samgukji2": {
@@ -832,7 +835,8 @@ const IA = {
     ],
     "aliases": [
       "세븐일레븐"
-    ]
+    ],
+    "sourceUrl": "https://m.cultureland.co.kr/tgl/exceptBarcode.do"
   },
   "sharebox": {
     "groups": [
@@ -894,7 +898,8 @@ const IA = {
       "금융/간편결제"
     ],
     "aliases": [
-      "SSG PAY"
+      "SSG PAY",
+      "SSG"
     ]
   },
   "starbucks": {
@@ -951,7 +956,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "테루"
+      "TERO"
     ]
   },
   "theborn": {
@@ -1054,7 +1059,7 @@ const IA = {
       "레스토랑"
     ],
     "aliases": [
-      "싱카이"
+      "XINGKAI"
     ]
   },
   "yapka": {
@@ -1177,13 +1182,14 @@ const coupon = [
 
 const offline = [
   ['cu', 'CU', '쇼핑'], ['gs25', 'GS25', '쇼핑'], ['seveneleven', '7-Eleven', '쇼핑'], ['emart24', 'emart24', '쇼핑'],
-  ['artbox', 'ARTBOX', '쇼핑'], ['hottracks', 'HOTTRACKS', '쇼핑'],
-  ['phoenixpyeongchang', 'phoenix pyeongchang', '문화생활'], ['phoenixseopjikoji', 'phoenix seopjikoji', '문화생활'],
-  ['ashley', 'ASHLEY', '외식'], ['ashleyqueens', 'ASHLEY QUEENS', '외식'], ['pizzamall', 'Pizza Mall', '외식'],
-  ['jayeon', '자연별곡', '외식'], ['bangung', '반궁', '외식'], ['roun', '로운 샤브샤브', '외식'],
-  ['rimini', 'RIMINI', '외식'], ['tero', 'TERO', '외식'], ['foodempire', 'Food Empire', '외식'],
-  ['xingkai', 'XINGKAI', '외식'], ['kisara', 'KISARA', '외식'], ['dalkomm', 'Dal.Komm', '외식'],
-  ['beansbins', 'BEANSBINS COFFEE', '외식'], ['newyorkburger', 'NEW YORK BURGER', '외식'], ['alpha', 'Alpha', '쇼핑'],
+  ['artbox', '아트박스', '쇼핑'], ['hottracks', '핫트랙스', '쇼핑'],
+  ['ashley', '애슐리', '외식'], ['ashleyqueens', '애슐리퀸즈', '외식'], ['pizzamall', '피자몰', '외식'],
+  ['jayeon', '자연별곡', '외식'], ['bangung', '반궁', '외식'], ['roun', '로운', '외식'],
+  ['rimini', '리미니', '외식'], ['tero', '테루', '외식'], ['foodempire', '푸드엠파이어', '외식'],
+  ['xingkai', '싱카이', '외식'], ['dalkomm', '달콤커피', '외식'],
+  ['beansbins', '빈스빈스커피', '외식'], ['newyorkburger', '뉴욕버거', '외식'],
+  ['culinarysquare', '컬리너리스퀘어', '외식'], ['museumfoundation', '박물관문화재단', '문화생활'],
+  ['cinemacenter', '영화의 전당', '문화생활'], ['phoenixresort', '피닉스 리조트', '문화생활'],
 ];
 
 // 2026-11-09 원본 사용처 페이지의 154개 카드(6페이지)를 전수 대조해 기존 통합 목록에 없는 항목만 추가했다.
@@ -1241,7 +1247,7 @@ const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => {
   const officialName = officialNames[id] || name;
   return {
     id, name: officialName, cat, type, status, summary, sourceUrl, ...extra, ...(IA[id] || {}),
-    initial: officialName.slice(0, 2), logo: suppliedLogos[id] ? `/assets/logos/brand-${id}.${suppliedLogos[id]}` : extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, logoOnDark: darkLogoIds.has(id), checkedAt: extra.checkedAt || '2026-11-09',
+    initial: officialName.slice(0, 2), logo: suppliedLogos[id] ? `/assets/logos/brand-${id}.${suppliedLogos[id]}` : extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, logoOnDark: darkLogoIds.has(id), checkedAt: extra.checkedAt || (IA[id] || {}).checkedAt || '2026-11-09',
   };
 };
 
