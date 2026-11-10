@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { browseMatches, browseSubtabs, browseTabs, places, taskLabels } from '../data';
 import { useApp } from '../context/AppContext';
 import { useGoBack, useOpenPlace } from '../hooks/useNav';
-import { ASSET } from '../lib/constants';
+import { ASSET, URLS } from '../lib/constants';
 
 // 사용처 조회 페이지. 카테고리 알약·온라인/오프라인 필터는 목록과 함께 여기에 있다.
 export default function BrowsePage() {

@@ -4,6 +4,18 @@ import { test } from 'node:test';
 import { offlineIds } from './catalog.js';
 import { culturelandOriginalLogos } from './culturelandOriginalLogos.js';
 import { browseMatches, browseTabs, getSteps, isReady, places } from './data.js';
+import { guideSteps } from './lib/guide.js';
+import { URLS } from './lib/constants.js';
+
+test('편의점 컬쳐캐쉬 안내는 공식 편의점 바코드 메뉴로 연결한다', () => {
+  for (const id of ['cu', 'gs25', 'seveneleven', 'emart24']) {
+    const place = places.find((item) => item.id === id);
+    const [openBarcode] = guideSteps(place, 'cash');
+    assert.equal(openBarcode.href, URLS.barcodeBrands);
+    assert.match(openBarcode.lines.join(' '), /편의점 바코드 결제/);
+    assert.notEqual(guideSteps(place, 'barcode')[0].href, URLS.barcodeBrands);
+  }
+});
 
 test('온라인·오프라인 필터가 모든 사용처를 분류하고 하위 탭과 맞는다', () => {
   for (const mode of ['online', 'store']) {
