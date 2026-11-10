@@ -2,15 +2,9 @@
 // 인덱서(scripts/index-catalog.mjs)가 이 함수로 청크를 만들고,
 // 그 텍스트를 벡터와 함께 data/catalog-vectors.json에 저장한다.
 // 런타임(api/ask.js)은 저장된 청크를 그대로 프롬프트에 넣는다.
-// 별칭은 키워드 검색(src/main.jsx의 searchPlaces)이 아는 3개만 최소한으로 둔다.
+// 별칭·그룹은 카탈로그 항목의 aliases/groups(IA 테이블)에서 읽는다.
 // "편의점 → CU/GS25" 같은 의미 연결은 임베딩이 맡는다. 별칭을 늘리고 싶으면
-// 아래 ALIASES에 추가하고 인덱서를 다시 돌리면 된다.
-export const ALIASES = {
-  yes24: ['예스24', 'yes24'],
-  cgv: ['CGV', '씨지비', '씨지브이'],
-  roblox: ['로블록스', '로벅스'],
-};
-
+// src/catalog.js의 IA 테이블에 추가하고 인덱서를 다시 돌리면 된다.
 const STATUS_GLOSS = {
   confirmed: '공식 상세 확인됨',
   partial: '일반 사용법만 확인됨 (세부 조건 미확인일 수 있음)',
@@ -25,12 +19,15 @@ const TYPE_GLOSS = {
 };
 
 // place: src/catalog.js의 항목 1개
-// { id, name, cat, type, status, summary, sourceUrl, fee?, limit?, variants?, offline? }
+// { id, name, cat, type, status, summary, sourceUrl, fee?, limit?, variants?, offline?, aliases?, groups?, subItems?, brand? }
 export function buildChunkText(place) {
   const lines = [];
-  const aliases = ALIASES[place.id];
+  const aliases = place.aliases;
   lines.push(`이름: ${place.name}${aliases ? ` (${aliases.join(', ')})` : ''}`);
   lines.push(`카테고리: ${place.cat}`);
+  if (place.groups) lines.push(`그룹: ${place.groups.join(', ')}`);
+  if (place.brand) lines.push(`브랜드: ${place.brand}`);
+  if (place.subItems) lines.push(`세부: ${place.subItems.join(', ')}`);
   lines.push(`방식: ${TYPE_GLOSS[place.type] || place.type}`);
   lines.push(`확인 상태: ${STATUS_GLOSS[place.status] || place.status}`);
   lines.push(`사용법: ${place.summary}`);

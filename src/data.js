@@ -43,8 +43,8 @@ export function isReady(place, holding) {
 export function searchPlaces(query) {
   const q = query.trim().toLowerCase().replace(/\s/g, '');
   if (!q) return [];
-  const aliases = { yes24: ['yes24', '예스24', '예스이십사'], cgv: ['cgv', '씨지브이'], roblox: ['roblox', '로블록스'] };
-  return places.filter((p) => [p.name, ...(aliases[p.id] || [])].some((term) => q.includes(term.toLowerCase().replace(/\s/g, ''))));
+  // 별칭은 카탈로그 항목의 aliases(IA 테이블)에서 읽는다.
+  return places.filter((p) => [p.name, ...(p.aliases || [])].some((term) => q.includes(term.toLowerCase().replace(/\s/g, ''))));
 }
 export function parseHolding(query) {
   if (/16자리|바코드/.test(query)) return 'barcode';
