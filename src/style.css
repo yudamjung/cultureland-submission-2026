@@ -712,12 +712,33 @@ a {
     padding: 3px 8px
 }
 
-.cgv-note {
-    font-size: 12px;
-    color: var(--sub);
-    line-height: 1.5;
-    margin: 13px 3px
+.convenience-action {
+    background: var(--color-bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 20px 18px;
+    color: var(--color-text-default)
 }
+
+.convenience-action h2 { display: block; margin: 0; font-size: 15px; line-height: 1.4; }
+.convenience-action p { margin: 8px 0 16px; font-size: 13px; line-height: 1.55; color: var(--color-text-sub); }
+.convenience-action strong { color: var(--color-text-default); }
+.convenience-action a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--navy);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-white);
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 700
+}
+.result-notes { margin: 20px 3px 0; padding-top: 14px; border-top: 1px solid var(--border); }
+.result-notes h2 { margin: 0 0 8px; font-size: 13px; }
+.result-notes ul { margin: 0; padding-left: 18px; }
+.result-notes li { margin: 5px 0; color: var(--sub); font-size: 12px; line-height: 1.55; }
 
 .guide-progress {
     height: 116px;
@@ -821,10 +842,24 @@ a {
     font-weight: 700
 }
 
-.chevron {
-    font-size: 16px;
-    color: #989898
+.step-number.complete::after {
+    content: '';
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: translateY(-1px) rotate(-45deg)
 }
+
+.chevron {
+    width: 9px;
+    height: 9px;
+    border-right: 1.5px solid var(--sub);
+    border-bottom: 1.5px solid var(--sub);
+    transform: translateY(-2px) rotate(45deg)
+}
+
+.chevron.up { transform: translateY(2px) rotate(225deg); }
 
 .step-content {
     padding: 0 14px 14px

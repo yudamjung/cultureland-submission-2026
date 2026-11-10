@@ -31,7 +31,7 @@ function Guide({ place }) {
   });
   useEffect(() => { sessionStorage.setItem(storageKey, JSON.stringify(open)); }, [storageKey, open]);
 
-  const headline = place.id === 'yes24' ? ['교환할 차례예요', '충전할 차례예요', '금액을 확인할 차례예요', '결제창에서 고를 차례예요'][open - 1] : `${steps[open - 1]?.title.replace('하기', '할')} 차례예요`;
+  const headline = place.id === 'yes24' ? ['교환할 차례예요', '충전할 차례예요', '금액을 확인할 차례예요', '결제창에서 고를 차례예요'][open - 1] : place.groups.includes('생활 편의') && holding === 'cash' ? ['편의점 바코드를 열 차례예요', '매장에서 바코드를 보여 줄 차례예요'][open - 1] : `${steps[open - 1]?.title.replace('하기', '할')} 차례예요`;
   const done = open - 1;
   return <>
     <Header title={`${place.name}에서 쓰는 방법`} back onBack={goBack} />
@@ -39,10 +39,10 @@ function Guide({ place }) {
     <div className="guide-list">{steps.map((step, index) => {
       const num = index + 1, complete = num < open, selected = num === open;
       return <section className={`guide-step ${selected ? 'selected' : ''}`} key={step.title}>
-        <button className="step-heading" aria-expanded={selected} onClick={() => setOpen(num)}><span className={`step-number ${complete ? 'complete' : ''}`}>{complete ? '✓' : num}</span><strong className={complete ? 'struck' : ''}>{step.title}</strong><span className="chevron">{selected ? '⌃' : '⌄'}</span></button>
+        <button className="step-heading" aria-expanded={selected} onClick={() => setOpen(num)}><span className={`step-number ${complete ? 'complete' : ''}`}>{complete ? '' : num}</span><strong className={complete ? 'struck' : ''}>{step.title}</strong><span className={`chevron ${selected ? 'up' : ''}`} aria-hidden="true" /></button>
         {selected && <div className="step-content">{step.lines.map((line) => <p key={line}>{line}</p>)}{step.why && <div className="why-box"><strong>왜 필요할까요?</strong><p>{step.why}</p></div>}<a className="primary-button action-button" href={step.href} target="_blank" rel="noreferrer" onClick={() => { if (open < steps.length) sessionStorage.setItem(storageKey, JSON.stringify(open + 1)); }}>{step.button}</a></div>}
       </section>;
     })}</div>
-    <div className="bottom-bar"><button className="secondary-button" onClick={() => open < steps.length ? setOpen(open + 1) : navigate('/')}>{open < steps.length ? '다음 단계로  ›' : '다른 사용처 찾기'}</button></div>
+    <div className="bottom-bar"><button className="secondary-button" onClick={() => open < steps.length ? setOpen(open + 1) : navigate('/')}>{open < steps.length ? '다음 단계' : '다른 사용처 찾기'}</button></div>
   </>;
 }
