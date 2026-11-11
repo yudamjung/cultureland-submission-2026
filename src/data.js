@@ -69,8 +69,11 @@ export function isReady(place, holding) {
 export function searchPlaces(query) {
   const q = query.trim().toLowerCase().replace(/\s/g, '');
   if (!q) return [];
-  // 별칭은 카탈로그 항목의 aliases(IA 테이블)에서 읽는다.
-  return places.filter((p) => [p.name, ...(p.aliases || [])].some((term) => q.includes(term.toLowerCase().replace(/\s/g, ''))));
+  // 별칭은 카탈로그 항목의 aliases(IA 테이블)에서 읽는다. 자식(subItems) 이름으로도 부모를 찾는다.
+  return places.filter((p) => [p.name, ...(p.aliases || []), ...(p.subItems || [])].some((term) => {
+    const t = term.toLowerCase().replace(/\s/g, '');
+    return q.includes(t) || t.includes(q);
+  }));
 }
 export function parseHolding(query) {
   if (/16자리|바코드/.test(query)) return 'barcode';

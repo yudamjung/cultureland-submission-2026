@@ -40,7 +40,7 @@ export default function BrowsePage() {
       </button>)}</div> : <p className="empty-results">{empty}</p>}
       {!expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(true)}>전체 {filtered.length}곳 보기</button>}
       {expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(false)}>접기</button>}
-      <p className="search-footnote">원본 온라인 154개(동일 권종 통합 150개) + 오프라인 28개 · 총 {places.length}곳 · 2026.11.09</p>
+      <p className="search-footnote">온라인 {places.filter((p) => p.offline !== 'yes').length}개 + 오프라인 {places.filter((p) => p.offline === 'yes').length}개 · 총 {places.length}곳 · 2026.11.09</p>
     </div>
   </>;
 }

@@ -44,6 +44,7 @@ export default function ResultPage() {
         <h2><span className={`dot ${ready ? 'mint' : place.status === 'partial' ? 'navy' : ''}`} />{ready ? '현재 수단으로 이용할 수 있어요' : place.status === 'partial' ? '기본 사용 경로를 확인했어요' : '사용하려면 준비가 필요해요'}</h2>
         <p>{place.summary}</p>
         {place.variants && <p className="result-tip">선택 경로: {place.variants}</p>}
+        {place.subItems && <p className="result-tip">포함 상품: {place.subItems.join(' · ')}</p>}
         <div className="step-chips">{steps.map((step, index) => {
           const done = !remaining.includes(step);
           const current = remaining[0] === step;
