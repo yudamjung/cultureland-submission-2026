@@ -66,6 +66,8 @@ textarea {
 }
 
 button {
+    /* 브라우저 기본 버튼 글자색(사파리는 파란색, 크롬은 검정)을 쓰지 않고 부모 글자색을 따른다. */
+    color: inherit;
     cursor: pointer
 }
 
