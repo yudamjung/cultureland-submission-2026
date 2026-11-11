@@ -51,7 +51,6 @@ function Store({ place, product }) {
     product.validity && ['유효기간', product.validity],
     product.dailyLimit && ['일 구매 한도', manwon(product.dailyLimit)],
     product.monthlyLimit && ['월 구매 한도', manwon(product.monthlyLimit)],
-    product.maxQty && ['한 번에 최대', `${product.maxQty}장`],
   ].filter(Boolean);
 
   return <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { places } from '../data';
 import { ask } from '../api/client';
 import { useApp } from '../context/AppContext';
@@ -34,6 +34,13 @@ export default function AiChat() {
 
   useEffect(() => { if (open) endRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' }); }, [messages, open]);
   useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
+  // 입력창은 글이 길어질수록 아래로 늘어나고, 최대 높이(CSS)를 넘으면 안에서 스크롤된다.
+  useLayoutEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+  }, [query, open]);
   useEffect(() => { if (infoOpen) infoRef.current?.focus(); }, [infoOpen]);
 
   const close = () => { setInfoOpen(false); setOpen(false); requestAnimationFrame(() => fabRef.current?.focus()); };
@@ -89,7 +96,9 @@ export default function AiChat() {
       <span ref={endRef} />
     </div>
     <form className="ai-compose" onSubmit={send} inert={infoOpen || undefined}>
-      <input ref={inputRef} value={query} onChange={(event) => setQuery(event.target.value)} aria-label="AI에게 질문" placeholder="예: 선물받은 교환권 예스24에서 돼?" />
+      <textarea ref={inputRef} rows={1} value={query} onChange={(event) => setQuery(event.target.value)}
+        onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); event.currentTarget.form.requestSubmit(); } }}
+        aria-label="AI에게 질문" placeholder="예: 선물받은 교환권 예스24에서 돼?" />
       <button type="submit" aria-label="질문 보내기" disabled={!query.trim() || pending}><img src={`${ASSET}figma-ai-send.svg`} alt="" /></button>
     </form>
     {infoOpen && <div className="ai-info-overlay" onClick={(event) => { if (event.target === event.currentTarget) setInfoOpen(false); }}>
