@@ -1435,45 +1435,63 @@ a {
 .browse-body { padding: 0 20px 18px; }
 .browse-tabs {
     display: flex;
-    gap: 12px;
-    height: 30px;
+    gap: 18px;
+    height: 46px;
+    position: relative;
     overflow-x: auto;
     scrollbar-width: none;
-    margin: 0 -20px;
     padding: 0 20px;
-    background: #fff;
+    background: var(--fade-color);
 }
+.fade-wrap { position: relative; margin: 0 -20px; }
+.fade-wrap::before,
+.fade-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 36px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s;
+}
+.fade-wrap::before { left: 0; background: linear-gradient(to right, var(--fade-color), transparent); }
+.fade-wrap::after { right: 0; background: linear-gradient(to left, var(--fade-color), transparent); }
+.fade-wrap[data-left='true']::before,
+.fade-wrap[data-right='true']::after { opacity: 1; }
 .browse-tabs::-webkit-scrollbar { display: none; }
 .browse-tabs button {
     flex: none;
     position: relative;
     border: 0;
     background: none;
-    padding: 0;
+    padding: 0 2px;
     font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
     color: var(--color-text-default);
 }
-.browse-tabs button.active::after {
-    content: '';
+.tab-indicator {
     position: absolute;
+    left: 0;
+    bottom: 0;
     height: 2px;
     border-radius: 2px;
     background: var(--navy);
-    left: 0;
-    right: 0;
-    bottom: 0;
+    pointer-events: none;
 }
+.tab-indicator.animate { transition: transform .38s cubic-bezier(.32, .72, 0, 1), width .38s cubic-bezier(.32, .72, 0, 1); }
+.browse-tabs button { transition: color .2s; }
+@media (prefers-reduced-motion: reduce) { .tab-indicator.animate, .browse-tabs button { transition: none; } }
 .browse-subtabs {
     display: flex;
     gap: 16px;
     align-items: center;
     overflow-x: auto;
     scrollbar-width: none;
-    height: 27px;
-    background: #f0f0f0;
-    margin: 0 -20px;
+    height: 40px;
+    background: var(--fade-color);
     padding: 0 20px;
 }
 .browse-subtabs::-webkit-scrollbar { display: none; }

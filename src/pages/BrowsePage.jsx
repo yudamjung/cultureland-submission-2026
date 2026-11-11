@@ -1,5 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom';
+import FadeScroll from '../components/FadeScroll';
 import Header from '../components/Header';
+import SlidingTabs from '../components/SlidingTabs';
 import { browseMatches, browseSubtabs, browseTabs, places, taskLabels } from '../data';
 import { useApp } from '../context/AppContext';
 import { useGoBack, useOpenPlace } from '../hooks/useNav';
@@ -28,12 +30,10 @@ export default function BrowsePage() {
   return <>
     <Header title={`${where === 'store' ? '오프라인' : '온라인'} 사용처 찾기`} back onBack={goBack} />
     <div className="search-body browse-body">
-      <div className="browse-tabs" aria-label="사용처 카테고리">
-        {browseTabs[where].map((cat) => <button key={cat} aria-pressed={category === cat} className={category === cat ? 'active' : ''} onClick={() => { setCategory(cat); setSubCategory('전체'); setExpanded(false); }}>{cat}</button>)}
-      </div>
-      <div className="browse-subtabs" aria-label="세부 카테고리">
+      <SlidingTabs label="사용처 카테고리" tabs={browseTabs[where]} active={category} onSelect={(cat) => { setCategory(cat); setSubCategory('전체'); setExpanded(false); }} />
+      <FadeScroll className="browse-subtabs" label="세부 카테고리" color="#f0f0f0">
         {(browseSubtabs[category] || ['전체']).map((sub) => <button key={sub} aria-pressed={subCategory === sub} className={subCategory === sub ? 'active' : ''} onClick={() => { setSubCategory(sub); setExpanded(false); }}>{sub}</button>)}
-      </div>
+      </FadeScroll>
       <div className="browse-topline"><h2>브랜드 <span>{filtered.length}곳</span></h2><label className="browse-search"><span className="sr-only">브랜드 검색</span><input value={query} onChange={(event) => { setQuery(event.target.value); setExpanded(false); }} placeholder="예: CGV" /><img src={`${ASSET}figma-browse-online-search.svg`} alt="" /></label></div>
       {filtered.length ? <div className="tiles">{list.map((p) => <button className="tile" key={p.id} onClick={() => openPlace(p)}>
         <span className={`logo-placeholder ${p.logoOnDark ? 'logo-on-dark' : ''}`}><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="task-badge">{taskLabels[p.type]}</span><small>{p.fee || p.limit || (p.status === 'listed' ? '상세 미확인' : p.status === 'partial' ? '일부 조건 미확인' : where === 'store' ? '오프라인' : '온라인')}</small>
