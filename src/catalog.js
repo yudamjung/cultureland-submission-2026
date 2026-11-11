@@ -7,7 +7,7 @@ const suppliedLogos = {
   mixmaster: 'gif', darkeden: 'png', cabal: 'svg', mookhon: 'png', godius: 'png', joycity: 'png',
   nextmarket: 'png', naddic: 'png', hanbiton: 'png', redstone: 'png', dho: 'png',
   doonline: 'png', gnjoy: 'gif', rohan: 'svg', pizzamall: 'png', roun: 'png',
-  phoenixresort: 'svg', museumfoundation: 'png', cinemacenter: 'png',
+  phoenixresort: 'svg', museumfoundation: 'png', cinemacenter: 'png', culinarysquare: 'jpg',
   bangung: 'png', jayeon: 'png', rimini: 'png', paymentwall: 'svg', tcash: 'png',
 };
 const darkLogoIds = new Set(['blackdesert', 'cheonsangbi', 'cabal', 'mookhon', 'joycity', 'nextmarket', 'hanbiton', 'rohan', 'pizzamall', 'roun', 'bangung', 'jayeon', 'rimini', 'paymentwall', 'phoenixresort']);
@@ -1238,7 +1238,9 @@ const discovered = [
   ['paymentwall', '페이먼트월', '콘텐츠', 'direct'], ['tcash', '티캐시', '콘텐츠', 'direct'],
 ];
 
-const unavailableLogoIds = new Set(['culinarysquare']);
+// 조사 목록(문화생활·외식 등)에서 로고를 못 구한 사용처는 여기에 넣으면 기본 아이콘(unknown.svg)을 쓴다.
+// 원본 사용처 목록에서 찾은 곳(discovered)은 로고 주소가 없으면 따로 unknown.svg를 쓴다.
+const unavailableLogoIds = new Set([]);
 
 const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => {
   const officialName = officialNames[id] || name;
