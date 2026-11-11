@@ -37,7 +37,7 @@ export default function BrowsePage() {
         {(browseSubtabs[category] || ['전체']).map((sub) => <button key={sub} aria-pressed={subCategory === sub} className={subCategory === sub ? 'active' : ''} onClick={() => { setSubCategory(sub); setExpanded(false); }}>{sub}</button>)}
       </FadeScroll>
       <div className="browse-topline"><h2>브랜드 <span>{filtered.length}곳</span></h2><label className="browse-search"><span className="sr-only">브랜드 검색</span><input value={query} onChange={(event) => { setQuery(event.target.value); setExpanded(false); }} placeholder="예: CGV" /><img src={`${ASSET}figma-browse-online-search.svg`} alt="" /></label></div>
-      {filtered.length ? <div className="tiles">{list.map((p) => <button className="tile" key={p.id} onClick={() => openPlace(p)}>
+      {filtered.length ? <div className="tiles">{list.map((p) => <button className="tile" key={p.id} onClick={() => openPlace(p, null, where)}>
         <span className={`logo-placeholder ${p.logoOnDark ? 'logo-on-dark' : ''}`}><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="tile-badges">{placeMethods(p).map((method) => <span className="task-badge" key={method}>{method}</span>)}</span>{(p.fee || p.limit || p.status === 'listed' || p.status === 'partial') && <small>{p.fee || p.limit || (p.status === 'listed' ? '상세 미확인' : '일부 조건 미확인')}</small>}
       </button>)}</div> : <p className="empty-results">{empty}</p>}
       {!expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(true)}>전체 {filtered.length}곳 보기</button>}

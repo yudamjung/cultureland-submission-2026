@@ -54,8 +54,13 @@ export const places = catalog.map((place) => ({
   offline: offlineIds.includes(place.id) ? 'yes' : 'unknown',
 }));
 
-export function getSteps(place, holding) {
-  if (place.type === 'direct' && place.offline === 'yes' && holding !== 'cash') return baseSteps.store;
+// pay: 결제창에서 바로 결제와 매장 바코드 결제를 모두 지원하는 곳에서 고른 방식('online' | 'store').
+// 고르지 않았으면(AI 안내 등) 예전처럼 컬쳐캐쉬가 없는 사람에게 매장 바코드 순서를 준다.
+export function getSteps(place, holding, pay) {
+  if (place.type === 'direct' && place.offline === 'yes') {
+    if (pay === 'store') return holding === 'cash' ? ['앱 바코드 열기', '매장에서 보여 주기'] : baseSteps.store;
+    if (!pay && holding !== 'cash') return baseSteps.store;
+  }
   if (place.type === 'store' && holding === 'cash') return ['앱 바코드 열기', '매장에서 보여 주기'];
   return place.extraSteps || baseSteps[place.type];
 }

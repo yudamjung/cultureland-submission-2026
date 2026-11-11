@@ -10,8 +10,8 @@ export const yesSteps = [
   { title: '예스24 결제창에서 선택하기', lines: ['“외부 상품권/포인트 → 컬쳐랜드상품권(컬쳐캐쉬)”을 누르고 컬쳐랜드에 로그인해요.', '‘문화상품권’ 버튼이 아니에요.', '예스24에 로그인한 주문만 가능하고, 모자란 금액은 카드로 함께 결제할 수 있어요.'], button: '예스24로 가기', href: URLS.yes24 },
 ];
 
-// 컬쳐캐쉬 직접 결제와 쿠폰을 모두 지원하는 곳은 method가 'coupon'이면 쿠폰 구매 순서를 보여 준다.
-export const stepNames = (place, holding, method) => (method === 'coupon' && getCoupon(place) ? baseSteps.coupon : getSteps(place, holding));
+// 결제 방식이 여러 개인 곳은 method('online' | 'coupon' | 'store')에 맞는 순서를 보여 준다.
+export const stepNames = (place, holding, method) => (method === 'coupon' && getCoupon(place) ? baseSteps.coupon : getSteps(place, holding, method));
 // 지금 기준(holding)에서 이미 끝난 단계 수를 뺀 다음 단계 번호(1부터).
 export const startStep = (place, holding, method) => {
   const names = stepNames(place, holding, method);

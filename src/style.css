@@ -751,6 +751,13 @@ a {
 
 .timeline-body .source { margin-top: 28px; }
 
+/* 결제 방식이 여러 개인 곳에서 사용 순서 위에 두는 방식 전환 */
+.pay-switch { display: flex; gap: 4px; margin-top: 14px; padding: 4px; border-radius: var(--radius-pill); background: var(--color-bg-dark); }
+.pay-switch button { flex: 1; height: 34px; border: 0; border-radius: var(--radius-pill); background: none; color: var(--color-text-sub); font-size: var(--font-size-sm); font-weight: 600; transition: background-color .15s ease, color .15s ease; }
+.pay-switch button.active { background: var(--color-bg-white); color: var(--navy); box-shadow: var(--shadow-subtle); }
+.pay-switch button:focus-visible { outline: 2px solid var(--navy); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) { .pay-switch button { transition: none; } }
+
 .timeline-title {
     font-size: 24px;
     line-height: 1.4;

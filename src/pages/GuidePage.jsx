@@ -3,10 +3,10 @@ import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-r
 import Header from '../components/Header';
 import NoticeModal from '../components/NoticeModal';
 import { holdings, findPlace } from '../data';
-import { hasMethodChoice } from '../coupons';
 import { useApp } from '../context/AppContext';
 import { useGoBack } from '../hooks/useNav';
 import { guideSteps, startStep } from '../lib/guide';
+import { hasPayChoice, PAY_OPTIONS, payOptions } from '../lib/methods';
 import { getNotes } from '../lib/notes';
 import { placePath } from '../lib/paths';
 import { readSession, formatDate } from '../lib/utils';
@@ -14,11 +14,13 @@ import { readSession, formatDate } from '../lib/utils';
 export default function GuidePage() {
   const { id, typeId } = useParams();
   const { holding } = useApp();
-  // 결제 방법이 여러 개인 곳은 ?pay=coupon 으로 쿠폰 구매 순서를 연다.
+  // 결제 방식이 여러 개인 곳은 ?pay=online|coupon|store 로 그 방식의 순서를 연다. 없으면 방식부터 고른다.
   const [params] = useSearchParams();
   const place = findPlace(id, typeId);
-  const method = place && hasMethodChoice(place) && params.get('pay') === 'coupon' ? 'coupon' : '';
+  const choice = !!place && hasPayChoice(place);
+  const method = choice && payOptions(place).includes(params.get('pay')) ? params.get('pay') : '';
   if (!place) return <Navigate to={typeId ? `/place/${id}/types` : '/'} replace />;
+  if (choice && !method) return <Navigate to={`/place/${place.id}/methods`} replace />;
   if (place.children?.length) return <Navigate to={`/place/${place.id}/types`} replace />;
   if (place.guideImage) return <Navigate to={placePath(place)} replace />;
   if (place.status === 'listed') return <Navigate to={`/place/${place.id}/noinfo`} replace />;
@@ -28,7 +30,7 @@ export default function GuidePage() {
 function Guide({ place, method }) {
   const navigate = useNavigate();
   // 결과 화면을 건너뛰는 곳은 주소로 바로 들어왔을 때 목록으로(세부 권종이면 권종 목록으로) 돌아간다.
-  const goBack = useGoBack(hasMethodChoice(place) ? `/place/${place.id}/methods` : place.parent ? `/place/${place.parent.id}/types` : '/');
+  const goBack = useGoBack(method ? `/place/${place.id}/methods` : place.parent ? `/place/${place.parent.id}/types` : '/');
   const { holding: savedHolding, sheet, openSheet } = useApp();
   // 가진 수단을 아직 안 골랐으면 들어오자마자 바텀시트를 띄운다.
   useEffect(() => { if (!savedHolding) openSheet('voucher'); }, [savedHolding, openSheet]);
@@ -44,13 +46,14 @@ function Guide({ place, method }) {
   useEffect(() => { sessionStorage.setItem(storageKey, JSON.stringify(open)); }, [storageKey, open]);
 
   // 들어올 때 꼭 필요한 안내가 있으면 모달로 먼저 보여 준다.
-  const notes = getNotes(place);
+  const notes = getNotes(place, method);
   const [noticeOpen, setNoticeOpen] = useState(notes.length > 0);
 
   return <>
     <Header title="사용 순서" back onBack={goBack} />
     <div className="timeline-body">
       <div className="holding-line"><span>{holdings[holding].heading}</span><button onClick={() => openSheet(holding)}>바꾸기</button></div>
+      {method && <div className="pay-switch" role="group" aria-label="결제 방식">{payOptions(place).map((option) => <button key={option} aria-pressed={option === method} className={option === method ? 'active' : ''} onClick={() => navigate(`?pay=${option}`, { replace: true })}>{PAY_OPTIONS[option].badge}</button>)}</div>}
       <h1 className="timeline-title">{place.name}에서<br />쓰는 방법</h1>
       <ol className="timeline">{steps.map((step, index) => {
         const num = index + 1, complete = num < open, selected = num === open;
