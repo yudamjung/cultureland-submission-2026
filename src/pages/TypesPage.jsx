@@ -1,7 +1,8 @@
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
-import { places } from '../data';
+import { places, findPlace } from '../data';
 import { couponProducts } from '../coupons';
+import { infoPath } from '../lib/paths';
 import { useGoBack } from '../hooks/useNav';
 
 // 부모 브랜드(이마트,신세계상품권 등)를 고르면 그 아래 상품권 종류를 보여 준다.
@@ -23,7 +24,7 @@ export default function TypesPage() {
       </section>
       <ul className="types-list">
         {place.children.map((child) => <li key={child.id}>
-          <button className="type-card" onClick={() => navigate(`/place/${place.id}/types/${child.id}${couponProducts[`${place.id}/${child.id}`] ? '/coupon' : ''}`)}>
+          <button className="type-card" onClick={() => navigate(couponProducts[`${place.id}/${child.id}`] ? `/place/${place.id}/types/${child.id}/coupon` : infoPath(findPlace(place.id, child.id)))}>
             <span className={`type-mark ${place.logoOnDark ? 'logo-on-dark' : ''}`}><img src={place.logo} alt="" /></span>
             <span className="type-copy">
               <span className="task-badge">{child.tag}</span>

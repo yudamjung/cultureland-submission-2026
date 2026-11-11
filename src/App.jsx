@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
-import AiPage from './pages/AiPage';
 import BrowsePage from './pages/BrowsePage';
 import CouponPage from './pages/CouponPage';
 import GuidePage from './pages/GuidePage';
@@ -14,7 +13,6 @@ export default function App() {
   return <Routes>
     <Route element={<Layout />}>
       <Route index element={<SearchPage />} />
-      <Route path="ai" element={<AiPage />} />
       <Route path="browse/:mode" element={<BrowsePage />} />
       <Route path="place/:id" element={<ResultPage />} />
       <Route path="place/:id/guide" element={<GuidePage />} />

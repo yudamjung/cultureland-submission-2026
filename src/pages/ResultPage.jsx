@@ -46,10 +46,11 @@ export default function ResultPage() {
           return <React.Fragment key={step}>{index > 0 && <span className="chip-arrow">›</span>}<span className={`step-chip ${done ? 'done' : current ? 'current' : ''}`}>{done ? '✓' : `${index + 1}`} {step}</span></React.Fragment>;
         })}</div>
       </div>}
-      {place.guideImage && <a className="secondary-button guide-image-link" href={place.guideImage} target="_blank" rel="noreferrer">공식 이미지 가이드 크게 보기 ↗</a>}
       {getCoupon(place) && <button className="secondary-button coupon-link" onClick={() => navigate(couponPath(place))}>상품권 금액별로 구매하기</button>}
       <p className="source">출처: <a href={place.sourceUrl} target="_blank" rel="noreferrer">{place.source}</a> · 확인일 {formatDate(place.checkedAt)}</p>
     </div>
-    <div className="bottom-bar"><button className="primary-button" onClick={() => navigate(`${placePath(place)}/guide`)}>{place.name} 사용 순서 보기</button></div>
+    <div className="bottom-bar">{place.guideImage
+      ? <a className="primary-button" href={place.guideImage} target="_blank" rel="noreferrer">사용 방법 안내 이미지 보기 ↗</a>
+      : <button className="primary-button" onClick={() => navigate(`${placePath(place)}/guide`)}>{place.name} 사용 순서 보기</button>}</div>
   </>;
 }

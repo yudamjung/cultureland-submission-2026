@@ -8,21 +8,26 @@ import { useGoBack } from '../hooks/useNav';
 import { guideSteps, yesSteps } from '../lib/guide';
 import { getNotes } from '../lib/notes';
 import { placePath } from '../lib/paths';
-import { readSession } from '../lib/utils';
+import { readSession, formatDate } from '../lib/utils';
 
 export default function GuidePage() {
   const { id, typeId } = useParams();
+  const { holding } = useApp();
   const place = findPlace(id, typeId);
   if (!place) return <Navigate to={typeId ? `/place/${id}/types` : '/'} replace />;
   if (place.children?.length) return <Navigate to={`/place/${place.id}/types`} replace />;
+  if (place.guideImage) return <Navigate to={placePath(place)} replace />;
   if (place.status === 'listed') return <Navigate to={`/place/${place.id}/noinfo`} replace />;
-  return <Guide key={`${place.id}-${place.typeId || ''}`} place={place} />;
+  return <Guide key={`${place.id}-${place.typeId || ''}-${holding || ''}`} place={place} />;
 }
 
 function Guide({ place }) {
   const navigate = useNavigate();
-  const goBack = useGoBack(placePath(place));
-  const { holding: savedHolding } = useApp();
+  // 결과 화면을 건너뛰는 곳은 주소로 바로 들어왔을 때 목록으로(세부 권종이면 권종 목록으로) 돌아간다.
+  const goBack = useGoBack(place.parent ? `/place/${place.parent.id}/types` : '/');
+  const { holding: savedHolding, sheet, openSheet } = useApp();
+  // 가진 수단을 아직 안 골랐으면 들어오자마자 바텀시트를 띄운다.
+  useEffect(() => { if (!savedHolding) openSheet('voucher'); }, [savedHolding, openSheet]);
   const holding = savedHolding || 'voucher';
   const steps = guideSteps(place, holding);
   const storageKey = `cultureland-guide-${place.id}${place.typeId ? `-${place.typeId}` : ''}-${holding}`;
@@ -42,6 +47,7 @@ function Guide({ place }) {
   return <>
     <Header title="사용 순서" back onBack={goBack} />
     <div className="timeline-body">
+      <div className="holding-line"><span>{holdings[holding].heading}</span><button onClick={() => openSheet(holding)}>바꾸기</button></div>
       <h1 className="timeline-title">{place.name}에서<br />쓰는 방법</h1>
       <ol className="timeline">{steps.map((step, index) => {
         const num = index + 1, complete = num < open, selected = num === open;
@@ -56,8 +62,12 @@ function Guide({ place }) {
           </div>
         </li>;
       })}</ol>
+      <p className="source">출처: <a href={place.sourceUrl} target="_blank" rel="noreferrer">{place.source}</a> · 확인일 {formatDate(place.checkedAt)}</p>
     </div>
-    {noticeOpen && <NoticeModal notes={notes} onClose={() => setNoticeOpen(false)} />}
-    <div className="bottom-bar"><button className="secondary-button" onClick={() => open < steps.length ? setOpen(open + 1) : navigate('/')}>{open < steps.length ? '다음 단계' : '다른 사용처 찾기'}</button></div>
+    {noticeOpen && !sheet && <NoticeModal notes={notes} onClose={() => setNoticeOpen(false)} />}
+    <div className="bottom-bar split">
+      <button className="secondary-button" disabled={open <= 1} onClick={() => setOpen(open - 1)}>이전 단계</button>
+      <button className="primary-button" onClick={() => open < steps.length ? setOpen(open + 1) : navigate('/')}>{open < steps.length ? '다음 단계' : '다른 사용처 찾기'}</button>
+    </div>
   </>;
 }

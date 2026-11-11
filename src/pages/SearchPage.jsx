@@ -43,11 +43,11 @@ export default function SearchPage() {
         </div>
         <img className="popular-mascots" src={`${ASSET}figma-popular-mascots.png`} alt="" />
       </div>
+      <h2 className="section-title destinations-title">전체 사용처 바로가기</h2>
       <div className="landing-destinations">
-        <button onClick={() => goBrowse('online')}><img src={`${ASSET}figma-online-button.svg`} alt="" /><span>온라인 사용처</span></button>
-        <button onClick={() => goBrowse('store')}><img src={`${ASSET}figma-offline-button.svg`} alt="" /><span>오프라인 사용처</span></button>
+        <button onClick={() => goBrowse('online')}>온라인 사용처</button>
+        <button onClick={() => goBrowse('store')}>오프라인 사용처</button>
       </div>
-      <section className="landing-ai"><h2>여기서 쓸 수 있을까?<br />AI에게 질문하세요.</h2><p>가지고 계신 금액권·바코드·컬쳐캐쉬가 해당 사용처에서 쓰이는지 알려줘요.</p><button className="secondary-button landing-link" onClick={() => navigate('/ai')}>AI에게 질문하러 가기</button></section>
     </div>
   </>;
 }
