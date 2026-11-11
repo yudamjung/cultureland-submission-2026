@@ -57,3 +57,8 @@ export function loadVectors() {
 export function _resetVectorsCache() {
   cachedVectors = null;
 }
+
+// 테스트에서 벡터 파일 대신 쓸 값을 넣을 때만 쓴다(실제 파일 내용과 무관하게 검증하려고).
+export function _setVectorsCache(value) {
+  cachedVectors = value;
+}

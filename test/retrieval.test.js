@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cosineSimilarity, topK } from '../api/_lib/retrieval.js';
+import { cosineSimilarity, topK, _resetVectorsCache, _setVectorsCache } from '../api/_lib/retrieval.js';
 import { buildChunkText } from '../api/_lib/chunks.js';
 import { catalog } from '../src/catalog.js';
 import handler from '../api/ask.js';
@@ -108,6 +108,8 @@ test('api/ask: 잘못된 요청은 400, POST가 아니면 405', async () => {
 test('api/ask: 사용처 벡터가 비어 있으면 준비 중 오류를 반환한다', async () => {
   const saved = process.env.OPENAI_API_KEY;
   process.env.OPENAI_API_KEY = 'test-key';
+  // 실제 data/catalog-vectors.json은 인덱싱돼 있으므로 빈 벡터 상태를 직접 넣는다.
+  _setVectorsCache({ model: null, dim: 0, generatedAt: null, entries: [] });
   try {
     const req = { method: 'POST', body: { question: '예스24에서 쓸 수 있나요?' }, headers: {}, socket: { remoteAddress: '127.0.0.1-test-vectors' } };
     const res = mockRes();
@@ -118,5 +120,6 @@ test('api/ask: 사용처 벡터가 비어 있으면 준비 중 오류를 반환�
   } finally {
     if (saved === undefined) delete process.env.OPENAI_API_KEY;
     else process.env.OPENAI_API_KEY = saved;
+    _resetVectorsCache();
   }
 });

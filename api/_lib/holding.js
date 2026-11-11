@@ -1,0 +1,51 @@
+// 질문에서 사용자가 가진 수단을 추정하고, 화면의 사용 순서와 같은 규칙(src/data.js getRemaining)으로
+// 남은 단계를 계산한다. 단계 계산을 AI에 맡기면 "16자리면 충전 없이 바로 결제" 같은 실수를 해서
+// 코드에서 정해 프롬프트에 넣는다.
+import { places, getRemaining, holdings } from '../../src/data.js';
+
+// 순서가 중요하다: 컬쳐캐쉬 → 16자리 → 12자리/카톡 선물 순으로 더 진행된 상태부터 본다.
+const RULES = [
+  ['cash', /컬쳐캐[쉬시].*(충전|있|남)|충전(해|된|돼|했)/],
+  ['barcode', /16\s*자리|상품권\s*바코드|지류|종이\s*상품권|교환(했|해\s*뒀|해놨|완료)/],
+  ['voucher', /12\s*자리|카톡|카카오|선물(받|로|하기)|모바일\s*(금액권|상품권|교환권)|기프티콘/],
+];
+
+export function detectHolding(question) {
+  const text = question.replace(/\s+/g, ' ');
+  for (const [holding, pattern] of RULES) if (pattern.test(text)) return holding;
+  return null;
+}
+
+const STEP_GLOSS = {
+  교환: '교환(12자리 번호를 컬쳐랜드 교환소에서 16자리 상품권으로 교환)',
+  충전: '충전(16자리 상품권을 컬쳐캐쉬로 충전)',
+  '결제창 선택': '사용처 결제창에서 컬쳐랜드(컬쳐캐쉬) 선택',
+  '포인트로 전환': '컬쳐캐쉬를 그 포인트로 전환',
+  '쿠폰 구매': '컬쳐랜드에서(사용처가 아니라) 그 사용처 쿠폰을 금액별로 구매한 뒤 사용처에 등록',
+  '바코드 보여 주기': '매장에서 16자리 상품권 바코드 보여 주기',
+  '앱 바코드 열기': '컬쳐랜드 앱에서 결제 바코드 열기',
+  '매장에서 보여 주기': '매장에서 앱 바코드 보여 주기',
+  '편의점 바코드 열기': "컬쳐랜드 공식 페이지에서 '편의점 바코드 결제'를 눌러 결제용 바코드 준비 (편의점은 상품권 바코드를 받지 않음)",
+};
+
+// 프롬프트에 넣을 안내 블록. 가진 수단을 모르면 모바일 금액권(가장 처음 상태) 기준으로 계산한다.
+export function buildStepHint(question, placeId) {
+  const place = places.find((item) => item.id === placeId);
+  if (!place || place.children?.length) return '';
+  const detected = detectHolding(question);
+  const holding = detected || 'voucher';
+  // 편의점은 상품권 바코드를 받지 않는다. 화면(ResultPage의 편의점 카드)과 같이
+  // 컬쳐캐쉬 충전 후 컬쳐랜드 '편의점 바코드 결제'로 만든 바코드를 써야 한다.
+  const isConvenience = place.groups?.includes('생활 편의');
+  const steps = isConvenience
+    ? [...(holding === 'voucher' ? ['교환'] : []), ...(holding === 'cash' ? [] : ['충전']), '편의점 바코드 열기', '매장에서 보여 주기']
+    : getRemaining(place, holding);
+  const remaining = steps.map((step) => STEP_GLOSS[step] || step);
+  if (!remaining.length) return '';
+  return [
+    detected
+      ? `[가진 수단] ${holdings[holding].name}`
+      : `[가진 수단] 질문에 없음. 아래 단계는 ${holdings.voucher.name}(12자리)일 때 기준이니 '${holdings.voucher.name}을 가지고 계시다면'처럼 조건으로 말할 것`,
+    `[${place.name}까지 남은 단계] ${remaining.map((step, index) => `${index + 1}) ${step}`).join(' → ')}`,
+  ].join('\n');
+}
