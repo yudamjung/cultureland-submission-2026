@@ -1533,6 +1533,9 @@ a {
 .browse-search input::placeholder { color: #cacaca; }
 .browse-search img { width: 14px; height: 14px; flex: none; margin: 0 8px 0 0; }
 .browse-body .tile { min-height: 158px; }
+/* 결과가 적어도 타일 3줄만큼 자리를 잡아, 푸터가 끌려 올라오거나 탭을 옮길 때 화면이 출렁이지 않게 한다. */
+.browse-body .tiles, .browse-body .empty-results { min-height: calc(158px * 3 + 7px * 2); }
+.browse-body .tiles { align-content: start; }
 .browse-body .tile small { margin-top: auto; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .ai-bubble.reply { background: rgba(52, 118, 218, .1); }
