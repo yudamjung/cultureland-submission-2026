@@ -3,7 +3,8 @@ import FadeScroll from '../components/FadeScroll';
 import AppFooter from '../components/AppFooter';
 import Header from '../components/Header';
 import SlidingTabs from '../components/SlidingTabs';
-import { browseMatches, browseSubtabs, browseTabs, places, taskLabels } from '../data';
+import { browseMatches, browseSubtabs, browseTabs, places } from '../data';
+import { placeMethods } from '../lib/methods';
 import { useApp } from '../context/AppContext';
 import { useGoBack, useOpenPlace } from '../hooks/useNav';
 import { ASSET, URLS } from '../lib/constants';
@@ -37,7 +38,7 @@ export default function BrowsePage() {
       </FadeScroll>
       <div className="browse-topline"><h2>브랜드 <span>{filtered.length}곳</span></h2><label className="browse-search"><span className="sr-only">브랜드 검색</span><input value={query} onChange={(event) => { setQuery(event.target.value); setExpanded(false); }} placeholder="예: CGV" /><img src={`${ASSET}figma-browse-online-search.svg`} alt="" /></label></div>
       {filtered.length ? <div className="tiles">{list.map((p) => <button className="tile" key={p.id} onClick={() => openPlace(p)}>
-        <span className={`logo-placeholder ${p.logoOnDark ? 'logo-on-dark' : ''}`}><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="task-badge">{taskLabels[p.type]}</span><small>{p.fee || p.limit || (p.status === 'listed' ? '상세 미확인' : p.status === 'partial' ? '일부 조건 미확인' : where === 'store' ? '오프라인' : '온라인')}</small>
+        <span className={`logo-placeholder ${p.logoOnDark ? 'logo-on-dark' : ''}`}><img src={p.logo} alt="" /></span><strong>{p.name}</strong><span className="tile-badges">{placeMethods(p).map((method) => <span className="task-badge" key={method}>{method}</span>)}</span>{(p.fee || p.limit || p.status === 'listed' || p.status === 'partial') && <small>{p.fee || p.limit || (p.status === 'listed' ? '상세 미확인' : '일부 조건 미확인')}</small>}
       </button>)}</div> : <p className="empty-results">{empty}</p>}
       {!expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(true)}>전체 {filtered.length}곳 보기</button>}
       {expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(false)}>접기</button>}
