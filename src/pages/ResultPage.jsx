@@ -5,7 +5,7 @@ import { getRemaining, getSteps, holdings, findPlace, taskLabels } from '../data
 import { useApp } from '../context/AppContext';
 import { useGoBack } from '../hooks/useNav';
 import { getCoupon } from '../coupons';
-import { couponPath, placePath } from '../lib/paths';
+import { placePath } from '../lib/paths';
 import { formatDate } from '../lib/utils';
 import { URLS } from '../lib/constants';
 
@@ -15,13 +15,15 @@ export default function ResultPage() {
   const goBack = useGoBack(typeId ? `/place/${id}/types` : '/');
   const { holding: savedHolding, openSheet } = useApp();
   const place = findPlace(id, typeId);
-  const needsSheet = !!place && place.status !== 'listed' && !savedHolding;
+  const couponOnly = !!place && !!getCoupon(place);
+  const needsSheet = !!place && place.status !== 'listed' && !couponOnly && !savedHolding;
   // 가진 수단을 아직 안 골랐으면 결과 화면에 들어오자마자 바텀시트를 띄운다.
   useEffect(() => { if (needsSheet) openSheet('voucher'); }, [needsSheet, openSheet]);
 
   if (!place) return <Navigate to={typeId ? `/place/${id}/types` : '/'} replace />;
   if (place.children?.length) return <Navigate to={`/place/${place.id}/types`} replace />;
   if (place.status === 'listed') return <Navigate to={`/place/${place.id}/noinfo`} replace />;
+  if (couponOnly) return <Navigate to={`${placePath(place)}/guide`} replace />;
 
   const holding = savedHolding || 'voucher';
   const steps = getSteps(place, holding);
@@ -46,7 +48,6 @@ export default function ResultPage() {
           return <React.Fragment key={step}>{index > 0 && <span className="chip-arrow">›</span>}<span className={`step-chip ${done ? 'done' : current ? 'current' : ''}`}>{done ? '✓' : `${index + 1}`} {step}</span></React.Fragment>;
         })}</div>
       </div>}
-      {getCoupon(place) && <button className="secondary-button coupon-link" onClick={() => navigate(couponPath(place))}>상품권 금액별로 구매하기</button>}
       <p className="source">출처: <a href={place.sourceUrl} target="_blank" rel="noreferrer">{place.source}</a> · 확인일 {formatDate(place.checkedAt)}</p>
     </div>
     <div className="bottom-bar">{place.guideImage

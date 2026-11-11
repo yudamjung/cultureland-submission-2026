@@ -11,7 +11,7 @@ export default function MethodPage() {
   const goBack = useGoBack('/');
   const place = places.find((p) => p.id === id);
   if (!place) return <Navigate to="/" replace />;
-  if (!hasMethodChoice(place)) return <Navigate to={`/place/${place.id}`} replace />;
+  if (!hasMethodChoice(place)) return <Navigate to={`/place/${place.id}/guide`} replace />;
   const coupon = couponProducts[place.id];
   const couponNote = coupon.soldOut ? '지금은 모든 권종이 품절이에요.' : '금액권을 사서 등록해 써요.';
 
@@ -25,7 +25,7 @@ export default function MethodPage() {
       </section>
       <ul className="types-list">
         <li>
-          <button className="type-card" onClick={() => navigate(`/place/${place.id}`)}>
+          <button className="type-card" onClick={() => navigate(`/place/${place.id}/guide`)}>
             <span className="type-copy">
               <span className="task-badge">바로 결제</span>
               <strong>컬쳐캐쉬로 바로 결제</strong>
@@ -35,7 +35,7 @@ export default function MethodPage() {
           </button>
         </li>
         <li>
-          <button className="type-card" onClick={() => navigate(`/place/${place.id}/coupon`)}>
+          <button className="type-card" onClick={() => navigate(`/place/${place.id}/guide?pay=coupon`)}>
             <span className="type-copy">
               <span className="task-badge">쿠폰</span>
               <strong>쿠폰(상품권)으로 구매</strong>

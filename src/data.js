@@ -35,7 +35,7 @@ export const holdings = {
 export const baseSteps = {
   direct: ['교환', '충전', '결제창 선택'],
   convert: ['교환', '충전', '포인트로 전환'],
-  coupon: ['교환', '충전', '쿠폰 구매', '쿠폰 등록'],
+  coupon: ['교환', '충전', '쿠폰 구매'],
   store: ['교환', '바코드 보여 주기'],
 };
 export const doneByHolding = {

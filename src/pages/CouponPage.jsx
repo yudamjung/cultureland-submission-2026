@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
-import { chargesFee, DEFAULT_MAX_QTY, feePercent, getCoupon, itemAmount, itemTitle } from '../coupons';
+import { chargesFee, DEFAULT_MAX_QTY, feePercent, getCoupon, hasMethodChoice, itemAmount, itemTitle } from '../coupons';
 import { findPlace } from '../data';
 import { useGoBack } from '../hooks/useNav';
-import { placePath } from '../lib/paths';
+import { infoPath, placePath } from '../lib/paths';
 
 const won = (value) => `${value.toLocaleString('ko-KR')}원`;
 const manwon = (value) => (value % 10000 === 0 ? `${value / 10000}만원` : won(value));
@@ -20,17 +20,27 @@ export default function CouponPage() {
 }
 
 function Store({ place, product }) {
-  const navigate = useNavigate();
-  const goBack = useGoBack(place.parent ? `/place/${place.parent.id}/types` : '/');
+  const goBack = useGoBack(hasMethodChoice(place) ? `${infoPath(place)}?pay=coupon` : infoPath(place));
   const [qty, setQty] = useState({});
-  const maxQty = product.maxQty || DEFAULT_MAX_QTY;
 
   const rows = product.items.map((item, index) => ({ item, index, amount: itemAmount(item), count: qty[index] || 0 }));
   const count = rows.reduce((sum, row) => sum + row.count, 0);
   const total = rows.reduce((sum, row) => sum + row.amount * row.count, 0);
   const faceTotal = rows.reduce((sum, row) => sum + (row.item.face || 0) * row.count, 0);
-  const overDaily = product.dailyLimit && faceTotal > product.dailyLimit;
-  const change = (index, delta) => setQty((current) => ({ ...current, [index]: Math.min(maxQty, Math.max(0, (current[index] || 0) + delta)) }));
+  // 한 장 더 담아도 되는지. 한 번에 최대 장수(maxQty)가 있으면 그게 우선이고,
+  // 아니면 일 구매 한도가 있는 액면가 상품은 한도 안에서 얼마든지, 그 밖에는 기본 상한을 쓴다.
+  const blockedByLimit = (row) => !!product.dailyLimit && !!row.item.face && faceTotal + row.item.face > product.dailyLimit;
+  const canAdd = (row) => {
+    if (blockedByLimit(row)) return false;
+    if (product.maxQty) return row.count < product.maxQty;
+    return product.dailyLimit && row.item.face ? true : row.count < DEFAULT_MAX_QTY;
+  };
+  const limitHit = rows.some((row) => blockedByLimit(row));
+  const change = (index, delta) => setQty((current) => {
+    const row = rows[index];
+    if (delta > 0 && !canAdd(row)) return current;
+    return { ...current, [index]: Math.max(0, (current[index] || 0) + delta) };
+  });
 
   const fee = chargesFee(product);
   const feeChip = product.cashback ? `구매 시 ${product.cashback * 100}% 캐쉬백`
@@ -68,18 +78,17 @@ function Store({ place, product }) {
           <div className="stepper" role="group" aria-label={`${itemTitle(item)} 수량`}>
             <button onClick={() => change(index, -1)} disabled={n === 0} aria-label={`${itemTitle(item)} 수량 줄이기`}>−</button>
             <output aria-live="polite">{n}</output>
-            <button onClick={() => change(index, 1)} disabled={n >= maxQty} aria-label={`${itemTitle(item)} 수량 늘리기`}>+</button>
+            <button onClick={() => change(index, 1)} disabled={!canAdd(rows[index])} aria-label={`${itemTitle(item)} 수량 늘리기`}>+</button>
           </div>
         </li>)}
       </ul>}
 
       {facts.length > 0 && <dl className="coupon-facts">{facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
-      <button className="secondary-button coupon-link" onClick={() => navigate(placePath(place))}>사용 방법 먼저 보기</button>
-    </div>
+          </div>
 
     <div className="bottom-bar">
       {fee && count > 0 && <p className="fee-red fee-line">구매 금액의 {feePercent(product)}% 수수료가 발생해요.</p>}
-      {overDaily && <p className="coupon-warn" role="status">일 구매 한도({manwon(product.dailyLimit)})를 넘으면 구매가 안 될 수 있어요.</p>}
+      {limitHit && count > 0 && <p className="coupon-warn" role="status">일 구매 한도({manwon(product.dailyLimit)})까지만 담을 수 있어요.</p>}
       {count > 0
         ? <a className="primary-button coupon-buy" href={place.sourceUrl} target="_blank" rel="noopener noreferrer"><span>컬쳐랜드에서 구매하기</span><strong>{count}장 · {won(total)}</strong></a>
         : <button className="primary-button coupon-buy" disabled>{product.soldOut ? '품절' : '금액권을 골라 주세요'}</button>}

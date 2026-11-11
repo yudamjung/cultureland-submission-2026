@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import NoticeModal from '../components/NoticeModal';
-import { getRemaining, getSteps, holdings, findPlace } from '../data';
+import { holdings, findPlace } from '../data';
+import { hasMethodChoice } from '../coupons';
 import { useApp } from '../context/AppContext';
 import { useGoBack } from '../hooks/useNav';
-import { guideSteps, yesSteps } from '../lib/guide';
+import { guideSteps, startStep } from '../lib/guide';
 import { getNotes } from '../lib/notes';
 import { placePath } from '../lib/paths';
 import { readSession, formatDate } from '../lib/utils';
@@ -13,30 +14,32 @@ import { readSession, formatDate } from '../lib/utils';
 export default function GuidePage() {
   const { id, typeId } = useParams();
   const { holding } = useApp();
+  // 결제 방법이 여러 개인 곳은 ?pay=coupon 으로 쿠폰 구매 순서를 연다.
+  const [params] = useSearchParams();
   const place = findPlace(id, typeId);
+  const method = place && hasMethodChoice(place) && params.get('pay') === 'coupon' ? 'coupon' : '';
   if (!place) return <Navigate to={typeId ? `/place/${id}/types` : '/'} replace />;
   if (place.children?.length) return <Navigate to={`/place/${place.id}/types`} replace />;
   if (place.guideImage) return <Navigate to={placePath(place)} replace />;
   if (place.status === 'listed') return <Navigate to={`/place/${place.id}/noinfo`} replace />;
-  return <Guide key={`${place.id}-${place.typeId || ''}-${holding || ''}`} place={place} />;
+  return <Guide key={`${place.id}-${place.typeId || ''}-${holding || ''}-${method}`} place={place} method={method} />;
 }
 
-function Guide({ place }) {
+function Guide({ place, method }) {
   const navigate = useNavigate();
   // 결과 화면을 건너뛰는 곳은 주소로 바로 들어왔을 때 목록으로(세부 권종이면 권종 목록으로) 돌아간다.
-  const goBack = useGoBack(place.parent ? `/place/${place.parent.id}/types` : '/');
+  const goBack = useGoBack(hasMethodChoice(place) ? `/place/${place.id}/methods` : place.parent ? `/place/${place.parent.id}/types` : '/');
   const { holding: savedHolding, sheet, openSheet } = useApp();
   // 가진 수단을 아직 안 골랐으면 들어오자마자 바텀시트를 띄운다.
   useEffect(() => { if (!savedHolding) openSheet('voucher'); }, [savedHolding, openSheet]);
   const holding = savedHolding || 'voucher';
-  const steps = guideSteps(place, holding);
-  const storageKey = `cultureland-guide-${place.id}${place.typeId ? `-${place.typeId}` : ''}-${holding}`;
+  const steps = guideSteps(place, holding, method);
+  const storageKey = `cultureland-guide-${place.id}${place.typeId ? `-${place.typeId}` : ''}-${holding}${method ? `-${method}` : ''}`;
 
   // 처음 열 단계: 이미 끝낸 단계 다음, 또는 지난번에 보던 단계.
   const [open, setOpen] = useState(() => {
-    const initial = place.id === 'yes24' ? holdings[holding].start : Math.max(1, getSteps(place, savedHolding).length - getRemaining(place, holding).length + 1);
-    const total = place.id === 'yes24' ? yesSteps.length : getSteps(place, savedHolding).length;
-    return Math.min(total, Math.max(initial, readSession(storageKey, initial)));
+    const initial = place.id === 'yes24' ? holdings[holding].start : startStep(place, holding, method);
+    return Math.min(steps.length, Math.max(initial, readSession(storageKey, initial)));
   });
   useEffect(() => { sessionStorage.setItem(storageKey, JSON.stringify(open)); }, [storageKey, open]);
 
@@ -58,7 +61,7 @@ function Guide({ place }) {
               <strong>{step.title}</strong>
               {!selected && <small>{step.lines[0]}</small>}
             </button>
-            {selected && <div className="step-content">{step.lines.map((line) => <p key={line}>{line}</p>)}{step.why && <div className="why-box"><strong>왜 필요할까요?</strong><p>{step.why}</p></div>}<a className="primary-button action-button" href={step.href} target="_blank" rel="noreferrer" onClick={() => { if (open < steps.length) sessionStorage.setItem(storageKey, JSON.stringify(open + 1)); }}>{step.button}</a></div>}
+            {selected && <div className="step-content">{step.lines.map((line) => <p key={line}>{line}</p>)}{step.why && <div className="why-box"><strong>왜 필요할까요?</strong><p>{step.why}</p></div>}{step.to ? <Link className="primary-button action-button" to={step.to}>{step.button}</Link> : <a className="primary-button action-button" href={step.href} target="_blank" rel="noreferrer" onClick={() => { if (open < steps.length) sessionStorage.setItem(storageKey, JSON.stringify(open + 1)); }}>{step.button}</a>}</div>}
           </div>
         </li>;
       })}</ol>

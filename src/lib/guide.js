@@ -1,5 +1,7 @@
-import { getSteps } from '../data.js';
+import { baseSteps, doneByHolding, getSteps } from '../data.js';
+import { getCoupon } from '../coupons.js';
 import { URLS } from './constants.js';
+import { couponPath } from './paths.js';
 
 export const yesSteps = [
   { title: '교환하기', lines: ['선물함에서 ‘등록하기’를 누르면 12자리 번호가 복사돼요.', '컬쳐랜드에 로그인한 뒤 위쪽 ‘교환소’ 탭에 붙여넣고 교환하세요.', '교환하면 16자리 상품권 번호가 도착해요.'], button: '교환소 열기', href: URLS.cultureland },
@@ -8,11 +10,21 @@ export const yesSteps = [
   { title: '예스24 결제창에서 선택하기', lines: ['“외부 상품권/포인트 → 컬쳐랜드상품권(컬쳐캐쉬)”을 누르고 컬쳐랜드에 로그인해요.', '‘문화상품권’ 버튼이 아니에요.', '예스24에 로그인한 주문만 가능하고, 모자란 금액은 카드로 함께 결제할 수 있어요.'], button: '예스24로 가기', href: URLS.yes24 },
 ];
 
-export function guideSteps(place, holding) {
+// 컬쳐캐쉬 직접 결제와 쿠폰을 모두 지원하는 곳은 method가 'coupon'이면 쿠폰 구매 순서를 보여 준다.
+export const stepNames = (place, holding, method) => (method === 'coupon' && getCoupon(place) ? baseSteps.coupon : getSteps(place, holding));
+// 지금 기준(holding)에서 이미 끝난 단계 수를 뺀 다음 단계 번호(1부터).
+export const startStep = (place, holding, method) => {
+  const names = stepNames(place, holding, method);
+  const done = doneByHolding[holding] || [];
+  return Math.max(1, names.length - names.filter((step) => !done.includes(step)).length + 1);
+};
+
+export function guideSteps(place, holding, method) {
   if (place.id === 'yes24') return yesSteps;
-  return getSteps(place, holding).map((step) => {
+  return stepNames(place, holding, method).map((step) => {
     if (step === '교환') return { title: '상품권 교환하기', lines: ['받은 12자리 교환권은 컬쳐랜드 교환소에서 상품권으로 교환해요.'], button: '컬쳐랜드 교환소 열기', href: URLS.cultureland };
     if (step === '충전') return { title: '컬쳐캐쉬로 충전하기', lines: ['16자리 컬쳐랜드상품권을 사용 가능 컬쳐캐쉬로 충전해요.', '안심금고에 보관된 잔액은 먼저 찾아야 해요.'], button: '컬쳐랜드 열기', href: URLS.cultureland };
+    if (step === '쿠폰 구매' && getCoupon(place)) return { title: '쿠폰 구매하기', lines: ['금액권을 고른 뒤 컬쳐랜드에서 결제해요.', ...(getCoupon(place).soldOut ? ['지금은 모든 권종이 품절이에요.'] : [])], button: '금액권 고르기', to: couponPath(place) };
     if (step === '앱 바코드 열기' && place.groups.includes('생활 편의')) return { title: '편의점 바코드 열기', lines: ['컬쳐랜드 공식 페이지에서 ‘편의점 바코드 결제’를 눌러 결제용 바코드를 준비해요.', '결제 전 사용 가능 잔액과 제외 매장을 확인하세요.'], button: '컬쳐랜드 페이지 열기', href: URLS.barcodeBrands };
     if (step === '앱 바코드 열기') return { title: '앱 바코드 열기', lines: ['컬쳐랜드 앱에 로그인한 뒤 홈 화면의 바코드결제에서 사용처를 선택해요.'], button: '공식 안내 보기', href: 'https://www.cultureland.co.kr/customer/help/serviceHelp.do?class1=2&class2=7' };
     if (step === '바코드 보여 주기' || step === '매장에서 보여 주기') return { title: '매장에서 바코드 보여 주기', lines: ['결제 전 상품권 또는 앱 바코드의 사용 가능 잔액을 확인해요.', '매장 직원에게 바코드를 보여 주세요. 일부 매장은 제외될 수 있어요.'], button: '공식 사용처 보기', href: 'https://www.cultureland.co.kr/voucher/voucheruse.do' };

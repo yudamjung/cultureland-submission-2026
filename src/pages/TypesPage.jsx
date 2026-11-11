@@ -1,7 +1,6 @@
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { places, findPlace } from '../data';
-import { couponProducts } from '../coupons';
 import { infoPath } from '../lib/paths';
 import { useGoBack } from '../hooks/useNav';
 
@@ -24,7 +23,7 @@ export default function TypesPage() {
       </section>
       <ul className="types-list">
         {place.children.map((child) => <li key={child.id}>
-          <button className="type-card" onClick={() => navigate(couponProducts[`${place.id}/${child.id}`] ? `/place/${place.id}/types/${child.id}/coupon` : infoPath(findPlace(place.id, child.id)))}>
+          <button className="type-card" onClick={() => navigate(infoPath(findPlace(place.id, child.id)))}>
             <span className={`type-mark ${place.logoOnDark ? 'logo-on-dark' : ''}`}><img src={place.logo} alt="" /></span>
             <span className="type-copy">
               <span className="task-badge">{child.tag}</span>
