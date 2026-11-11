@@ -8,6 +8,8 @@ import { embedTexts, DEFAULT_EMBED_MODEL } from './_lib/embed.js';
 import { topK, loadVectors } from './_lib/retrieval.js';
 import { chatComplete, DEFAULT_CHAT_MODEL } from './_lib/llm.js';
 import { buildStepHint } from './_lib/holding.js';
+import { findNamedPlaceIds } from './_lib/names.js';
+import { cosineSimilarity } from './_lib/retrieval.js';
 
 // 사용처별 자료(RAG)와 별개로, 모든 답변에 필요한 "가진 수단 → 사용처까지 가는 순서"는
 // 화면의 사용 순서(src/lib/guide.js, src/data.js의 holdings/baseSteps)와 같은 내용으로 여기에 고정해 둔다.
@@ -28,6 +30,7 @@ const SYSTEM_PROMPT = `너는 컬쳐랜드 상품권 사용처 안내 도우미�
 
 [답변 규칙]
 - 아래 [자료]에 있는 사용처 내용만으로 답해. 자료에 없는 사용법·수수료·한도는 지어내지 말고 모른다고 해.
+- 질문에서 물은 사용처가 [자료]에 없으면 그 사용처의 사용 단계를 지어내지 말고, 컬쳐랜드 사용처 목록에서 확인되지 않는다고만 말해. 모른다고 해 놓고 단계를 안내하지 마.
 - '확인 상태'가 listed나 partial인 항목은 세부 조건이 미확인일 수 있다고 덧붙여.
 - '쿠폰' 줄은 컬쳐랜드에서 그 사용처 상품권을 살 때의 권종·수수료·한도·유효기간이야. 상품권 금액이나 수수료를 물으면 그 줄로 답해. 금액은 액면가 그대로(예: '5만원권') 말하고 수수료는 '수수료 1% 별도'처럼 비율로만 말해. 수수료 금액이나 수수료를 더한 결제 금액은 계산해서 말하지 마.
 - 형식: 첫 문장에 쓸 수 있는지 없는지와 이유를 말해. 그다음 지금부터 할 일을 '1. 2. 3.' 번호 목록으로 한 줄씩 적어. 수수료·한도 같은 주의할 점이 있으면 마지막에 한두 문장으로 덧붙여.
@@ -111,16 +114,22 @@ export default async function handler(req, res) {
       apiKey,
       model: process.env.OPENAI_EMBED_MODEL || DEFAULT_EMBED_MODEL,
     });
-    const matches = topK(queryVector, entries, k);
-    if (matches.length === 0 || matches[0].score < minScore) {
+    // 질문에 이름이 나온 사용처는 임베딩 순위와 상관없이 맨 앞에 넣는다(하이브리드 검색).
+    // 임베딩만 쓰면 '카톡·상품권' 같은 흔한 단어에 끌려 이름이 나온 사용처가 상위권 밖으로 밀린다.
+    const namedIds = findNamedPlaceIds(question);
+    const namedEntries = namedIds
+      .map((id) => entries.find((entry) => entry.id === id))
+      .filter(Boolean)
+      .map((entry) => ({ ...entry, score: cosineSimilarity(queryVector, entry.vector) }));
+    const rest = topK(queryVector, entries.filter((entry) => !namedIds.includes(entry.id)), k);
+    const matches = [...namedEntries, ...rest].slice(0, Math.max(k, namedEntries.length));
+    if (!namedEntries.length && (matches.length === 0 || matches[0].score < minScore)) {
       return res.status(200).json({ answer: NOT_FOUND_ANSWER, sources: [], matched: false });
     }
 
     // 1순위 사용처 기준으로 가진 수단에 따른 남은 단계를 코드에서 계산해 넣는다.
-    // 임베딩 순위가 어긋날 때가 있어서(예: 'CU' 질문에 롯데상품권이 1순위) 질문에 이름이 나온 사용처를 먼저 쓴다.
-    const compact = (text) => text.toLowerCase().replace(/\s/g, '');
-    const named = matches.find((m) => compact(question).includes(compact(m.name)));
-    const stepHint = buildStepHint(question, (named || matches[0]).id);
+    const primary = namedEntries[0] || matches[0];
+    const stepHint = buildStepHint(question, primary.id);
     const context = matches
       .map((m, i) => `--- [${i + 1}] ${m.name} (${m.cat}) ---\n${m.chunk}`)
       .join('\n\n');
@@ -139,6 +148,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       answer,
+      // 질문에 사용처 이름이 하나만 나왔으면 화면이 그 사용처의 '사용 안내 보기' 버튼을 띄운다.
+      primaryId: namedEntries.length === 1 ? namedEntries[0].id : null,
       sources: matches.map((m) => ({
         id: m.id,
         name: m.name,

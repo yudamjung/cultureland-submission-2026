@@ -113,6 +113,9 @@ const IA = {
   "bugsmusic": {
     "groups": [
       "영화·컨텐츠·게임/컨텐츠 이용권"
+    ],
+    "aliases": [
+      "벅스"
     ]
   },
   "bunjang": {
@@ -670,6 +673,10 @@ const IA = {
   "olive": {
     "groups": [
       "뷰티·건강"
+    ],
+    "aliases": [
+      "올영",
+      "올리브영 기프트카드"
     ]
   },
   "ondisk": {
