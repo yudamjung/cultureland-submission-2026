@@ -1233,11 +1233,13 @@ const discovered = [
   ['paymentwall', '페이먼트월', '콘텐츠', 'direct'], ['tcash', '티캐시', '콘텐츠', 'direct'],
 ];
 
+const unavailableLogoIds = new Set(['culinarysquare', 'museumfoundation', 'cinemacenter', 'phoenixresort']);
+
 const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => {
   const officialName = officialNames[id] || name;
   return {
     id, name: officialName, cat, type, status, summary, sourceUrl, ...extra, ...(IA[id] || {}),
-    initial: officialName.slice(0, 2), logo: suppliedLogos[id] ? `/assets/logos/brand-${id}.${suppliedLogos[id]}` : extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${id}.svg`, logoOnDark: darkLogoIds.has(id), checkedAt: extra.checkedAt || (IA[id] || {}).checkedAt || '2026-11-09',
+    initial: officialName.slice(0, 2), logo: suppliedLogos[id] ? `/assets/logos/brand-${id}.${suppliedLogos[id]}` : extra.logo || culturelandOriginalLogos[id] || `/assets/logos/${unavailableLogoIds.has(id) ? 'unknown' : id}.svg`, logoOnDark: darkLogoIds.has(id), checkedAt: extra.checkedAt || (IA[id] || {}).checkedAt || '2026-11-09',
   };
 };
 

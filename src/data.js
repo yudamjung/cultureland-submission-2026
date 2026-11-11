@@ -1,4 +1,5 @@
 import { catalog, offlineIds } from './catalog.js';
+import { childrenByPlace } from './children.js';
 export const categories = ['전체', '쇼핑', '게임', '콘텐츠', '문화생활', '외식', '금융'];
 export const browseTabs = {
   online: ['금융', '백화점·마트', '외식', '영화·OTT·게임', '뷰티·건강', '취미·여가·학습'],
@@ -49,6 +50,7 @@ export const places = catalog.map((place) => ({
   verified: place.status === 'confirmed',
   source: place.type === 'store' ? (place.sourceUrl === 'https://www.cultureland.co.kr/voucher/voucheruse.do' ? '사용자 제공 오프라인 목록·컬쳐랜드 일반 사용법' : '컬쳐랜드 공식 안내') : place.sourceUrl.includes('cultureland.co.kr') ? '컬쳐랜드 공식 안내' : '제휴사 안내·조사 자료',
   ...place,
+  children: childrenByPlace[place.id],
   offline: offlineIds.includes(place.id) ? 'yes' : 'unknown',
 }));
 
@@ -80,4 +82,14 @@ export function parseHolding(query) {
   if (/컬쳐캐쉬|컬처캐쉬|캐쉬|잔액/.test(query)) return 'cash';
   if (/12자리|선물|카톡|금액권/.test(query)) return 'voucher';
   return null;
+}
+
+// /place/:id 는 사용처 자체, /place/:id/types/:typeId 는 부모 아래 세부 권종.
+// 권종은 부모의 로고·권종 유형·출처를 그대로 쓰고 이름과 설명만 자기 것으로 바꾼다.
+export function findPlace(id, typeId) {
+  const place = places.find((p) => p.id === id);
+  if (!place || !typeId) return place;
+  const child = place.children?.find((c) => c.id === typeId);
+  if (!child) return undefined;
+  return { ...place, children: undefined, subItems: undefined, typeId, name: child.name, summary: child.summary, parent: { id: place.id, name: place.name } };
 }

@@ -329,8 +329,7 @@ a {
 
 .tile:focus-visible,
 .pill:focus-visible,
-.segment button:focus-visible,
-.step-heading:focus-visible {
+.segment button:focus-visible {
     outline: 2px solid var(--navy);
     outline-offset: 2px
 }
@@ -735,141 +734,121 @@ a {
     font-size: 13px;
     font-weight: 700
 }
-.result-notes { margin: 20px 3px 0; padding-top: 14px; border-top: 1px solid var(--border); }
-.result-notes h2 { margin: 0 0 8px; font-size: 13px; }
-.result-notes ul { margin: 0; padding-left: 18px; }
-.result-notes li { margin: 5px 0; color: var(--sub); font-size: 12px; line-height: 1.55; }
 
-.guide-progress {
-    height: 116px;
+.timeline-body {
+    padding: 8px 24px 120px;
     background: #fff;
-    padding: 16px 20px
+    min-height: calc(100vh - 56px)
 }
 
-.guide-progress>div:first-child {
+.timeline-title {
+    font-size: 24px;
+    line-height: 1.4;
+    margin: 18px 0 34px
+}
+
+.timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0
+}
+
+.tl-step {
+    position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: center
+    gap: 16px;
+    padding-bottom: 26px
 }
 
-.guide-progress h1 {
-    font-size: 16px;
-    margin: 0
+.tl-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 40px;
+    bottom: 6px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--color-border-light)
 }
 
-.guide-progress span {
-    font-size: 12px;
-    color: var(--sub)
-}
+.tl-step.complete:not(:last-child)::before { background: var(--mint); }
 
-.progress-track {
-    height: 5px;
-    border-radius: 99px;
-    background: #e8ebf0;
-    margin-top: 14px;
-    overflow: hidden
-}
-
-.progress-track span {
-    height: 100%;
-    display: block;
-    background: var(--mint);
-    border-radius: 99px
-}
-
-.guide-list {
-    padding: 16px 20px 95px
-}
-
-.guide-step {
-    background: #fff;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    border: 1px solid transparent
-}
-
-.guide-step.selected {
-    border-color: var(--navy);
-    box-shadow: 0 4px 12px #00000012
-}
-
-.step-heading {
-    width: 100%;
-    min-height: 48px;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 0;
-    background: none;
-    text-align: left
-}
-
-.step-heading strong {
-    font-size: 14px;
-    flex: 1
-}
-
-.step-heading strong.struck {
-    color: #989898;
-    text-decoration: line-through;
-    font-weight: 400
-}
-
-.step-number {
-    width: 24px;
-    height: 24px;
-    border: 1px solid var(--border);
+.tl-num {
+    flex: none;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
+    background: var(--color-bg-dark);
+    color: var(--color-text-sub);
     display: grid;
     place-items: center;
-    color: var(--sub);
-    font-size: 12px;
-    flex: none
-}
-
-.selected .step-number {
-    background: var(--navy);
-    color: #fff;
-    border-color: var(--navy)
-}
-
-.step-number.complete {
-    background: var(--mint);
-    color: #fff;
-    border-color: var(--mint);
+    font-size: 13px;
     font-weight: 700
 }
 
-.step-number.complete::after {
+.tl-step.current .tl-num {
+    background: var(--navy);
+    color: #fff
+}
+
+.tl-step.complete .tl-num { background: var(--mint); }
+
+.tl-step.complete .tl-num::after {
     content: '';
-    width: 10px;
+    width: 11px;
     height: 6px;
     border-left: 2px solid #fff;
     border-bottom: 2px solid #fff;
     transform: translateY(-1px) rotate(-45deg)
 }
 
-.chevron {
-    width: 9px;
-    height: 9px;
-    border-right: 1.5px solid var(--sub);
-    border-bottom: 1.5px solid var(--sub);
-    transform: translateY(-2px) rotate(45deg)
+.tl-main { min-width: 0; flex: 1; }
+
+.tl-head {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-align: left;
+    color: var(--color-text-default)
 }
 
-.chevron.up { transform: translateY(2px) rotate(225deg); }
+.tl-head strong {
+    display: block;
+    font-size: 18px;
+    line-height: 32px;
+    word-break: keep-all
+}
+
+.tl-head small {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-text-label)
+}
+
+.tl-step.complete .tl-head strong { color: var(--color-text-label); }
+
+.tl-head:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 4px;
+    border-radius: 6px
+}
 
 .step-content {
-    padding: 0 14px 14px
+    padding: 2px 0 0
 }
 
 .step-content>p {
-    font-size: 13px;
-    line-height: 1.55;
-    margin: 0 0 4px;
-    color: #4d4d4d
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 6px;
+    color: var(--color-text-sub)
 }
 
 .why-box {
@@ -1511,3 +1490,120 @@ a {
 
 .logo-on-dark { background: #2a3854; padding: 4px; border-radius: 8px; }
 .logo-on-dark img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* 부모 브랜드 아래 상품권 종류 목록 */
+.types-body { padding: 0 20px 40px; }
+.types-hero { text-align: center; padding: 28px 0 22px; }
+.types-hero .merchant-logo { margin-bottom: 6px; }
+.types-hero h1 { margin: 8px 0 6px; font-size: 20px; line-height: 1.45; }
+.types-hero p { margin: 0; font-size: 12px; color: var(--color-text-sub); }
+.types-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.type-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 14px;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-white);
+    box-shadow: var(--shadow-card);
+    text-align: left;
+    color: var(--color-text-default);
+    transition: transform .15s, box-shadow .15s;
+}
+.type-card:active { transform: scale(.985); }
+.type-card:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+.type-mark {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    background: var(--color-bg-light);
+    display: grid;
+    place-items: center;
+}
+.type-mark img { max-width: 40px; max-height: 40px; object-fit: contain; }
+.type-copy { min-width: 0; flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.type-copy strong { font-size: 15px; line-height: 1.35; }
+.type-copy small {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-sub);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.type-arrow { flex: none; font-size: 22px; color: var(--color-text-label); }
+@media (prefers-reduced-motion: reduce) { .type-card { transition: none; } }
+
+/* 금액권 구매 화면 */
+.coupon-body { padding: 0 20px 130px; }
+.fee-chip {
+    display: inline-block;
+    margin: 0 3px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--color-bg-dark);
+    color: var(--color-text-default);
+    font-size: 11px;
+    font-weight: 700;
+}
+.fee-chip.mint { background: #e3f0ed; }
+.fee-chip.red { background: #fdecea; color: var(--color-brand-primary-red); }
+.fee-red { color: var(--color-brand-primary-red); font-weight: 700; }
+.fee-line { margin: 0 0 8px; font-size: 12px; text-align: center; }
+.coupon-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.coupon-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-white);
+    box-shadow: var(--shadow-subtle);
+    overflow: hidden;
+    outline: 2px solid transparent;
+    transition: outline-color .15s, box-shadow .15s;
+}
+.coupon-card.picked { outline-color: var(--navy); box-shadow: var(--shadow-card); }
+.coupon-face {
+    min-height: 104px;
+    padding: 12px 8px;
+    background: var(--color-bg-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+}
+.coupon-face img { max-width: 70px; max-height: 26px; object-fit: contain; }
+.coupon-face strong { font-size: 15px; line-height: 1.35; word-break: keep-all; }
+.coupon-info { padding: 12px 12px 4px; display: flex; flex-direction: column; gap: 2px; }
+.coupon-price { font-size: 16px; font-weight: 800; }
+.coupon-info small { min-height: 15px; font-size: 11px; color: var(--color-text-sub); }
+.coupon-info small.fee-red { color: var(--color-brand-primary-red); }
+.stepper { margin: 8px 12px 12px; display: flex; align-items: center; justify-content: space-between; height: 36px; border: 1px solid var(--border); border-radius: var(--radius-md); }
+.stepper button { width: 38px; height: 100%; border: 0; background: none; font-size: 18px; color: var(--navy); }
+.stepper button:disabled { color: var(--color-text-disable-placeholder); }
+.stepper button:focus-visible { outline: 2px solid var(--navy); outline-offset: -2px; border-radius: var(--radius-md); }
+.stepper output { min-width: 24px; text-align: center; font-size: 14px; font-weight: 700; }
+.coupon-soldout { margin: 8px 0 0; padding: 22px 16px; border-radius: var(--radius-lg); background: var(--color-bg-white); box-shadow: var(--shadow-subtle); text-align: center; font-size: 13px; color: var(--color-text-sub); }
+.coupon-facts { margin: 22px 3px 0; padding-top: 14px; border-top: 1px solid var(--border); display: grid; gap: 6px; }
+.coupon-facts div { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+.coupon-facts dt { color: var(--color-text-sub); }
+.coupon-facts dd { margin: 0; text-align: right; font-weight: 600; }
+.coupon-link { margin-top: 16px; }
+.coupon-warn { margin: 0 0 8px; padding: 8px 12px; border-radius: var(--radius-sm); background: #fdecea; color: var(--color-brand-primary-red); font-size: 12px; font-weight: 600; }
+.coupon-buy { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 52px; padding: 0 18px; border: 0; border-radius: 11px; font-size: 15px; font-weight: 700; }
+.coupon-buy strong { font-size: 14px; }
+.coupon-buy:disabled { justify-content: center; background: var(--color-bg-dark); color: var(--color-text-label); }
+@media (prefers-reduced-motion: reduce) { .coupon-card { transition: none; } }
+
+/* 사용 순서 진입 안내 모달 */
+.sheet.notice-modal { height: auto; max-height: 80dvh; padding-bottom: 28px; }
+.notice-modal h2 { margin: 6px 0 14px; font-size: 17px; text-align: center; }
+.notice-modal ul { margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 10px; }
+.notice-modal li { position: relative; padding-left: 14px; font-size: 13px; line-height: 1.6; color: var(--color-text-default); }
+.notice-modal li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--navy); }
