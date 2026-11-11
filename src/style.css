@@ -1398,7 +1398,7 @@ a {
 .ai-speaker { font-size: 13px; margin: 4px 0 -8px; }
 .ai-bubble.reply { white-space: pre-line; align-self: flex-start; background: #f9e9e7; box-shadow: 0 2px 10px var(--border); }
 .ai-bubble.reply button { display: block; margin-top: 10px; padding: 0; border: 0; background: none; color: var(--navy); font-weight: 700; text-align: left; }
-.thinking-dots { display: flex; align-items: center; gap: 5px; width: 34px; height: 20px; color: var(--red); }
+.thinking-dots { display: flex; align-items: center; gap: 5px; width: 34px; height: 20px; color: var(--color-surface-navy-100); }
 .thinking-dots span { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: thinking-blink 1.2s infinite both; }
 .thinking-dots span:nth-child(2) { animation-delay: .2s; }
 .thinking-dots span:nth-child(3) { animation-delay: .4s; }
