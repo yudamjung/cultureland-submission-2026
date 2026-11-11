@@ -1,5 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import FadeScroll from '../components/FadeScroll';
+import AppFooter from '../components/AppFooter';
 import Header from '../components/Header';
 import SlidingTabs from '../components/SlidingTabs';
 import { browseMatches, browseSubtabs, browseTabs, places, taskLabels } from '../data';
@@ -42,5 +43,6 @@ export default function BrowsePage() {
       {expanded && filtered.length > 9 && <button className="show-all" onClick={() => setExpanded(false)}>접기</button>}
       <p className="search-footnote">온라인 {places.filter((p) => p.offline !== 'yes').length}개 + 오프라인 {places.filter((p) => p.offline === 'yes').length}개 · 총 {places.length}곳 · 2026.11.09</p>
     </div>
+    <AppFooter />
   </>;
 }

@@ -1651,3 +1651,22 @@ a {
 .notice-modal ul { margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 10px; }
 .notice-modal li { position: relative; padding-left: 14px; font-size: 13px; line-height: 1.6; color: var(--color-text-default); }
 .notice-modal li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--navy); }
+
+.app-footer {
+    /* main의 하단 여백(85px)을 먹어 푸터 색이 화면 바닥까지 이어지게 한다. */
+    margin: 24px 0 -85px;
+    padding: 28px 24px 96px;
+    background: var(--color-surface-navy-300);
+    color: rgba(255, 255, 255, .72);
+    font-size: var(--font-size-xs);
+    line-height: 1.6;
+}
+.app-footer a { color: inherit; text-decoration: none; }
+.app-footer a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
+.footer-contact strong { display: block; color: #fff; font-size: var(--font-size-md); font-weight: 700; }
+.footer-contact strong a { margin-left: 6px; font-size: var(--font-size-xl); }
+.footer-contact ul { display: flex; flex-wrap: wrap; gap: 2px 12px; margin: 6px 0 0; padding: 0; list-style: none; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .16); }
+.footer-links a { color: #fff; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .4); text-underline-offset: 3px; }
+.footer-notice { margin-top: 18px; color: rgba(255, 255, 255, .6); }
+.footer-notice p { margin: 0 0 6px; }

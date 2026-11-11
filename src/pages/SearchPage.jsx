@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import { places } from '../data';
 import { POPULAR, POPULAR_TABS } from '../popular.js';
 import { useApp } from '../context/AppContext';
+import AppFooter from '../components/AppFooter';
 import { useOpenPlace } from '../hooks/useNav';
 import { ASSET } from '../lib/constants';
 
@@ -49,5 +50,6 @@ export default function SearchPage() {
         <button onClick={() => goBrowse('store')}>오프라인 사용처</button>
       </div>
     </div>
+    <AppFooter />
   </>;
 }
