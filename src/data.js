@@ -91,5 +91,5 @@ export function findPlace(id, typeId) {
   if (!place || !typeId) return place;
   const child = place.children?.find((c) => c.id === typeId);
   if (!child) return undefined;
-  return { ...place, children: undefined, subItems: undefined, typeId, name: child.name, summary: child.summary, parent: { id: place.id, name: place.name } };
+  return { ...place, children: undefined, subItems: undefined, typeId, logo: child.logo || place.logo, name: child.name, summary: child.summary, parent: { id: place.id, name: place.name } };
 }

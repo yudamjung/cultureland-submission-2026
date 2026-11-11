@@ -28,8 +28,9 @@ export const culturelandOriginalLogos = {
   apartment: `${base}logo_%EC%95%84%ED%8C%8C%ED%8A%B8%EC%95%84%EC%9D%B4.png`,
   dalpoint: `${base}logo_%EB%8B%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8.png`,
   tiktok: `${base}202608101652079965.png`,
-  shinsegae: `${base}logo_%EC%8B%A0%EC%84%B8%EA%B3%84%EC%83%81%ED%92%88%EA%B6%8C(%EB%AA%A8%EB%B0%94%EC%9D%BC%ED%82%A4%EC%98%A4%EC%8A%A4%ED%81%AC%ED%98%95).png`,
-  lotte: `${base}logo_%EB%A1%AF%EB%8D%B0%EC%A7%80%EB%A5%98%EC%83%81%ED%92%88%EA%B6%8C(%EC%A7%80%EB%A5%98%EA%B5%90%ED%99%98%ED%98%95).png`,
+  // 부모 브랜드(이마트,신세계상품권 · 롯데상품권)는 각 회사 공식 로고를 쓴다.
+  shinsegae: 'https://www.shinsegae.com/resources/site/img/common/gnb/gnb_logo.png',
+  lotte: 'https://www.lotteshopping.com/resources/img/icon/main/logo.svg',
   webtoon: `${base}logo_naverWebtoon.png`, hangame: `${base}logo_%ED%95%9C%EA%B2%8C%EC%9E%84.png`, emart: `${base}logo_%EC%9D%B4%EB%A7%88%ED%8B%B0%EC%BD%98.png`,
   cjgift: `${base}logo_cj%EA%B8%B0%ED%94%84%ED%8A%B8%EC%B9%B4%EB%93%9C.png`, cjmarket: `${base}logo_cj%EB%8D%94%EB%A7%88%EC%BC%93.png`, cjfood: `${base}logo_cj%ED%91%B8%EB%93%9C%EB%B9%8C.png`,
   smilegift: `${base}logo_%EC%8A%A4%EB%A7%88%EC%9D%BC%EA%B8%B0%ED%94%84%ED%8A%B8.png`, ikea: `${base}logo_%EC%9D%B4%EC%BC%80%EC%95%84.png`, disney: `${base}202607020912416246.png`,

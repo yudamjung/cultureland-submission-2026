@@ -24,7 +24,7 @@ export default function TypesPage() {
       <ul className="types-list">
         {place.children.map((child) => <li key={child.id}>
           <button className="type-card" onClick={() => navigate(infoPath(findPlace(place.id, child.id)))}>
-            <span className={`type-mark ${place.logoOnDark ? 'logo-on-dark' : ''}`}><img src={place.logo} alt="" /></span>
+            <span className={`type-mark ${place.logoOnDark ? 'logo-on-dark' : ''}`}><img src={child.logo || place.logo} alt="" /></span>
             <span className="type-copy">
               <span className="task-badge">{child.tag}</span>
               <strong>{child.name}</strong>
