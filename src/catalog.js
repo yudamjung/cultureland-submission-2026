@@ -7,9 +7,10 @@ const suppliedLogos = {
   mixmaster: 'gif', darkeden: 'png', cabal: 'svg', mookhon: 'png', godius: 'png', joycity: 'png',
   nextmarket: 'png', naddic: 'png', hanbiton: 'png', redstone: 'png', dho: 'png',
   doonline: 'png', gnjoy: 'gif', rohan: 'svg', pizzamall: 'png', roun: 'png',
+  phoenixresort: 'svg', museumfoundation: 'png', cinemacenter: 'png',
   bangung: 'png', jayeon: 'png', rimini: 'png', paymentwall: 'svg', tcash: 'png',
 };
-const darkLogoIds = new Set(['blackdesert', 'cheonsangbi', 'cabal', 'mookhon', 'joycity', 'nextmarket', 'hanbiton', 'rohan', 'pizzamall', 'roun', 'bangung', 'jayeon', 'rimini', 'paymentwall']);
+const darkLogoIds = new Set(['blackdesert', 'cheonsangbi', 'cabal', 'mookhon', 'joycity', 'nextmarket', 'hanbiton', 'rohan', 'pizzamall', 'roun', 'bangung', 'jayeon', 'rimini', 'paymentwall', 'phoenixresort']);
 
 // 조사 기준일 2026-11-08. status: confirmed=공식 상세 확인, partial=일반 사용법만 확인, listed=목록 등재만 확인.
 const officialNames = {
@@ -141,6 +142,9 @@ const IA = {
     ]
   },
   "cinemacenter": {
+    "aliases": [
+      "영화의 전당"
+    ],
     "groups": [
       "문화생활"
     ],
@@ -726,9 +730,10 @@ const IA = {
       "문화생활"
     ],
     "aliases": [
+      "피닉스 리조트",
+      "피닉스",
       "피닉스 평창",
-      "피닉스 섭지코지",
-      "휘닉스 리조트"
+      "피닉스 섭지코지"
     ],
     "sourceUrl": "https://m.cultureland.co.kr/tgl/barcodeBrandList.do",
     "checkedAt": "2026-11-11"
@@ -1179,7 +1184,7 @@ const offline = [
   ['xingkai', '싱카이', '외식'], ['dalkomm', '달콤커피', '외식'],
   ['beansbins', '빈스빈스커피', '외식'], ['newyorkburger', '뉴욕버거', '외식'],
   ['culinarysquare', '컬리너리스퀘어', '외식'], ['museumfoundation', '박물관문화재단', '문화생활'],
-  ['cinemacenter', '영화의 전당', '문화생활'], ['phoenixresort', '피닉스 리조트', '문화생활'],
+  ['cinemacenter', '영화의전당', '문화생활'], ['phoenixresort', '휘닉스 리조트', '문화생활'],
 ];
 
 // 2026-11-09 원본 사용처 페이지의 154개 카드(6페이지)를 전수 대조해 기존 통합 목록에 없는 항목만 추가했다.
@@ -1233,7 +1238,7 @@ const discovered = [
   ['paymentwall', '페이먼트월', '콘텐츠', 'direct'], ['tcash', '티캐시', '콘텐츠', 'direct'],
 ];
 
-const unavailableLogoIds = new Set(['culinarysquare', 'museumfoundation', 'cinemacenter', 'phoenixresort']);
+const unavailableLogoIds = new Set(['culinarysquare']);
 
 const make = (id, name, cat, type, status, summary, sourceUrl, extra = {}) => {
   const officialName = officialNames[id] || name;

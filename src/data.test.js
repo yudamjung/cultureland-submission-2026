@@ -34,7 +34,8 @@ test('조사 목록과 오프라인 중복 통합', () => {
   assert.equal(places.filter(({ offline }) => offline === 'yes').length, 28);
   assert.ok(places.every(({ id, logo }) => logo === culturelandOriginalLogos[id] || logo.startsWith('https://image.cultureland.co.kr/') || existsSync(`public${logo}`)));
   assert.equal(Object.keys(culturelandOriginalLogos).length, 67);
-  assert.equal(places.filter(({ logo }) => logo.startsWith('https://image.cultureland.co.kr/')).length, 78);
+  // 이마트,신세계상품권·롯데상품권은 각 회사 공식 로고를 써서 컬쳐랜드 이미지가 아니다(6b99196).
+  assert.equal(places.filter(({ logo }) => logo.startsWith('https://image.cultureland.co.kr/')).length, 76);
   assert.equal(places.filter(({ sourceUrl }) => sourceUrl.endsWith('/usecash/useCash.do')).length, 96);
   assert.equal(places.find(({ id }) => id === 'olive').name, '올리브영');
   assert.equal(places.find(({ id }) => id === 'ssg').name, 'SSG페이');
