@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import BrowsePage from './pages/BrowsePage';
 import CouponPage from './pages/CouponPage';
+import DonePage from './pages/DonePage';
 import GuidePage from './pages/GuidePage';
 import MethodPage from './pages/MethodPage';
 import NoInfoPage from './pages/NoInfoPage';
@@ -16,12 +17,14 @@ export default function App() {
       <Route path="browse/:mode" element={<BrowsePage />} />
       <Route path="place/:id" element={<ResultPage />} />
       <Route path="place/:id/guide" element={<GuidePage />} />
+      <Route path="place/:id/done" element={<DonePage />} />
       <Route path="place/:id/methods" element={<MethodPage />} />
       <Route path="place/:id/coupon" element={<CouponPage />} />
       <Route path="place/:id/types" element={<TypesPage />} />
       <Route path="place/:id/types/:typeId" element={<ResultPage />} />
       <Route path="place/:id/types/:typeId/guide" element={<GuidePage />} />
       <Route path="place/:id/types/:typeId/coupon" element={<CouponPage />} />
+      <Route path="place/:id/types/:typeId/done" element={<DonePage />} />
       <Route path="place/:id/noinfo" element={<NoInfoPage />} />
       <Route path="noinfo" element={<NoInfoPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />

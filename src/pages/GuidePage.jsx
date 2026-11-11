@@ -73,7 +73,7 @@ function Guide({ place, method }) {
     {noticeOpen && !sheet && <NoticeModal notes={notes} onClose={() => setNoticeOpen(false)} />}
     <div className="bottom-bar split">
       <button className="secondary-button" disabled={open <= 1} onClick={() => setOpen(open - 1)}>이전 단계</button>
-      <button className="primary-button" onClick={() => open < steps.length ? setOpen(open + 1) : navigate('/')}>{open < steps.length ? '다음 단계' : '다른 사용처 찾기'}</button>
+      <button className="primary-button" onClick={() => open < steps.length ? setOpen(open + 1) : navigate(`${placePath(place)}/done`)}>{open < steps.length ? '다음 단계' : '사용 완료'}</button>
     </div>
   </>;
 }

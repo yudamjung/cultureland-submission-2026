@@ -15,3 +15,13 @@ export async function ask(question) {
     return { answer: error.response ? error.response.data?.message || FAILED : OFFLINE, sourceId: null };
   }
 }
+
+// POST /api/recommend -> 비슷한 사용처 id 목록. 실패하면 빈 목록(화면이 대체 추천을 쓴다).
+export async function recommend(id) {
+  try {
+    const { data } = await client.post('/recommend', { id });
+    return data.items.map((item) => item.id);
+  } catch {
+    return [];
+  }
+}
