@@ -28,3 +28,23 @@ test('편의점은 상품권 바코드 대신 편의점 바코드 결제 순서�
 test('세부 권종이 있는 부모 사용처는 쿠폰 구매 순서를 준다', () => {
   assert.match(buildStepHint('신세계 상품권 살 수 있어?', 'shinsegae'), /교환.*충전.*쿠폰을 금액별로 구매/);
 });
+
+test('질문의 결제 방식에 맞는 순서를 준다', () => {
+  assert.match(buildStepHint('로블록스 기프트카드 5만원권 있어?', 'roblox'), /쿠폰을 금액별로 구매/);
+  assert.match(buildStepHint('교보문고 매장에서 상품권 쓸 수 있어?', 'kyobo'), /바코드 보여 주기/);
+  assert.match(buildStepHint('교보문고 온라인에서 써도 돼?', 'kyobo'), /결제창/);
+});
+
+test('품절 쿠폰이나 확인되지 않은 매장 결제는 참고로 알려 준다', () => {
+  const nexon = buildStepHint('넥슨 쿠폰 지금 살 수 있어?', 'nexon');
+  assert.match(nexon, /\[참고\].*품절.*바로 결제/);
+  assert.match(nexon, /결제창/);
+  assert.match(buildStepHint('다이소 매장에서 바코드로 결제 돼?', 'daiso'), /\[참고\].*오프라인 매장 결제가 확인되지 않음/);
+});
+
+test('권종을 물으면 있는지 없는지를 코드에서 확인해 알려 준다', () => {
+  assert.match(buildStepHint('로블록스 기프트카드 5만원권 있어?', 'roblox'), /\[참고\] 5만원권 있음/);
+  assert.match(buildStepHint('스타벅스 1만원권 있어?', 'starbucks'), /\[참고\] 1만원권 없음. 있는 권종: 스타벅스 2만원·3만원·5만원/);
+  assert.match(buildStepHint('롯데상품권 지류 50만원짜리 살 수 있어?', 'lotte'), /\[참고\] 50만원권 있음 \(.*지류/);
+  assert.match(buildStepHint('롯데상품권 지류 50만원짜리 살 수 있어?', 'lotte'), /질문에 없음/);
+});

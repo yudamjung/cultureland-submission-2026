@@ -64,9 +64,9 @@ export function getSteps(place, holding, pay) {
   if (place.type === 'store' && holding === 'cash') return ['앱 바코드 열기', '매장에서 보여 주기'];
   return place.extraSteps || baseSteps[place.type];
 }
-export function getRemaining(place, holding) {
+export function getRemaining(place, holding, pay) {
   const done = doneByHolding[holding] || [];
-  return getSteps(place, holding).filter((step) => !done.includes(step));
+  return getSteps(place, holding, pay).filter((step) => !done.includes(step));
 }
 export function isReady(place, holding) {
   if (place.type === 'store' && place.offline === 'yes' && (holding === 'barcode' || holding === 'cash')) return true;
