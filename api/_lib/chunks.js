@@ -39,7 +39,7 @@ function itemText(item) {
 function feeText(product) {
   if (!product.fee) return '없음';
   const percent = +(product.fee * 100).toFixed(1);
-  return product.feeWaived ? `${percent}% (현재 지원돼 구매자 부담 없음)` : `${percent}% 별도`;
+  return product.feeWaived ? `없음 (원래 ${percent}%지만 지금은 컬쳐랜드가 지원해 구매자는 내지 않음)` : `${percent}% 별도`;
 }
 
 // 쿠폰 상품 1개 → 청크에 붙일 줄들. prefix는 세부 권종 이름(신세계 키오스크형 등).

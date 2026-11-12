@@ -18,7 +18,7 @@ test('세부 권종이 있는 부모는 권종별로 한 줄씩 붙는다', () =
 });
 
 test('수수료 지원·품절·판매가 상품을 구분해 적는다', () => {
-  assert.match(buildCouponLines(couponProducts.hangame)[0], /수수료 3% \(현재 지원돼 구매자 부담 없음\)/);
+  assert.match(buildCouponLines(couponProducts.hangame)[0], /수수료 없음 \(원래 3%지만 지금은 컬쳐랜드가 지원/);
   assert.deepEqual(buildCouponLines(couponProducts.nexon), ['쿠폰: 현재 품절']);
   assert.match(buildCouponLines(couponProducts.psstore)[0], /3,000원권\(2,910원\).*3% 할인가/);
 });

@@ -1,7 +1,8 @@
 // 질문에서 사용자가 가진 수단을 추정하고, 화면의 사용 순서와 같은 규칙(src/data.js getRemaining)으로
 // 남은 단계를 계산한다. 단계 계산을 AI에 맡기면 "16자리면 충전 없이 바로 결제" 같은 실수를 해서
 // 코드에서 정해 프롬프트에 넣는다.
-import { places, getRemaining, holdings } from '../../src/data.js';
+import { places, getRemaining, holdings, baseSteps, doneByHolding } from '../../src/data.js';
+import { couponProducts } from '../../src/coupons.js';
 
 // 순서가 중요하다: 컬쳐캐쉬 → 16자리 → 12자리/카톡 선물 순으로 더 진행된 상태부터 본다.
 const RULES = [
@@ -31,7 +32,10 @@ const STEP_GLOSS = {
 // 프롬프트에 넣을 안내 블록. 가진 수단을 모르면 모바일 금액권(가장 처음 상태) 기준으로 계산한다.
 export function buildStepHint(question, placeId) {
   const place = places.find((item) => item.id === placeId);
-  if (!place || place.children?.length) return '';
+  if (!place) return '';
+  // 세부 권종이 있는 부모(신세계·롯데·SKT)는 권종을 컬쳐랜드에서 쿠폰으로 사는 순서다.
+  const parentWithCoupons = place.children?.some((child) => couponProducts[`${place.id}/${child.id}`]);
+  if (place.children?.length && !parentWithCoupons) return '';
   const detected = detectHolding(question);
   const holding = detected || 'voucher';
   // 편의점은 상품권 바코드를 받지 않는다. 화면(ResultPage의 편의점 카드)과 같이
@@ -39,7 +43,9 @@ export function buildStepHint(question, placeId) {
   const isConvenience = place.groups?.includes('생활 편의');
   const steps = isConvenience
     ? [...(holding === 'voucher' ? ['교환'] : []), ...(holding === 'cash' ? [] : ['충전']), '편의점 바코드 열기', '매장에서 보여 주기']
-    : getRemaining(place, holding);
+    : parentWithCoupons
+      ? baseSteps.coupon.filter((step) => !(doneByHolding[holding] || []).includes(step))
+      : getRemaining(place, holding);
   const remaining = steps.map((step) => STEP_GLOSS[step] || step);
   if (!remaining.length) return '';
   return [

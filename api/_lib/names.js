@@ -22,6 +22,18 @@ function isBoundary(original, positions, start, end, term) {
   return term.length > 2 || !HANGUL.test(before);
 }
 
+// 업종으로 묻는 질문("상품권으로 쓸 수 있는 영화관 알려줘")은 이름이 없어서 임베딩이 엉뚱한 곳을 고른다.
+// 업종 단어가 나오면 그 업종 사용처를 모두 넣는다.
+const inGroup = (suffix) => places.filter((p) => (p.groups || []).some((g) => g === suffix || g.endsWith(`/${suffix}`))).map((p) => p.id);
+const CATEGORY_TERMS = [
+  [/영화관|극장|영화\s*볼/, [...inGroup('영화'), 'cinemacenter']],
+  [/편의점/, inGroup('생활 편의')],
+];
+
+export function findCategoryPlaceIds(question) {
+  return [...new Set(CATEGORY_TERMS.filter(([pattern]) => pattern.test(question)).flatMap(([, ids]) => ids))];
+}
+
 // 반환: 질문에 나온 순서대로 사용처 id(중복 없음). 긴 이름에 포함된 짧은 이름은 따로 세지 않는다.
 export function findNamedPlaceIds(question) {
   const original = question.toLowerCase();

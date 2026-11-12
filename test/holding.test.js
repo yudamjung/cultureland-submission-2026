@@ -25,6 +25,6 @@ test('편의점은 상품권 바코드 대신 편의점 바코드 결제 순서�
   assert.doesNotMatch(hint, /16자리 상품권 바코드 보여/);
 });
 
-test('세부 권종이 있는 부모 사용처는 단계 안내를 만들지 않는다', () => {
-  assert.equal(buildStepHint('신세계 상품권 살 수 있어?', 'shinsegae'), '');
+test('세부 권종이 있는 부모 사용처는 쿠폰 구매 순서를 준다', () => {
+  assert.match(buildStepHint('신세계 상품권 살 수 있어?', 'shinsegae'), /교환.*충전.*쿠폰을 금액별로 구매/);
 });

@@ -8,7 +8,7 @@ import { embedTexts, DEFAULT_EMBED_MODEL } from './_lib/embed.js';
 import { topK, loadVectors } from './_lib/retrieval.js';
 import { chatComplete, DEFAULT_CHAT_MODEL } from './_lib/llm.js';
 import { buildStepHint } from './_lib/holding.js';
-import { findNamedPlaceIds } from './_lib/names.js';
+import { findCategoryPlaceIds, findNamedPlaceIds } from './_lib/names.js';
 import { cosineSimilarity } from './_lib/retrieval.js';
 
 // 사용처별 자료(RAG)와 별개로, 모든 답변에 필요한 "가진 수단 → 사용처까지 가는 순서"는
@@ -30,6 +30,8 @@ const SYSTEM_PROMPT = `너는 컬쳐랜드 상품권 사용처 안내 도우미�
 
 [답변 규칙]
 - 아래 [자료]에 있는 사용처 내용만으로 답해. 자료에 없는 사용법·수수료·한도는 지어내지 말고 모른다고 해.
+- 환불·분실·오류처럼 사용처 자료로 답할 수 없는 질문은 모른다고 하고 컬쳐랜드 고객센터(1577-2111)에 문의하라고 안내해.
+- 질문이 '영화관 알려줘'처럼 여러 사용처를 묻는 거면 [자료]에 있는 해당 사용처를 모두 이름으로 알려 주고, 순서 안내는 [남은 단계] 기준으로 한 번만 적어.
 - 질문에서 물은 사용처가 [자료]에 없으면 그 사용처의 사용 단계를 지어내지 말고, 컬쳐랜드 사용처 목록에서 확인되지 않는다고만 말해. 모른다고 해 놓고 단계를 안내하지 마.
 - '확인 상태'가 listed나 partial인 항목은 세부 조건이 미확인일 수 있다고 덧붙여.
 - '쿠폰' 줄은 컬쳐랜드에서 그 사용처 상품권을 살 때의 권종·수수료·한도·유효기간이야. 상품권 금액이나 수수료를 물으면 그 줄로 답해. 금액은 액면가 그대로(예: '5만원권') 말하고 수수료는 '수수료 1% 별도'처럼 비율로만 말해. 수수료 금액이나 수수료를 더한 결제 금액은 계산해서 말하지 마.
@@ -117,13 +119,20 @@ export default async function handler(req, res) {
     // 질문에 이름이 나온 사용처는 임베딩 순위와 상관없이 맨 앞에 넣는다(하이브리드 검색).
     // 임베딩만 쓰면 '카톡·상품권' 같은 흔한 단어에 끌려 이름이 나온 사용처가 상위권 밖으로 밀린다.
     const namedIds = findNamedPlaceIds(question);
+    // 업종 단어(영화관·편의점)로 물었으면 그 업종 사용처도 이름이 나온 사용처 다음에 넣는다.
+    const categoryIds = findCategoryPlaceIds(question).filter((id) => !namedIds.includes(id));
     const namedEntries = namedIds
       .map((id) => entries.find((entry) => entry.id === id))
       .filter(Boolean)
       .map((entry) => ({ ...entry, score: cosineSimilarity(queryVector, entry.vector) }));
-    const rest = topK(queryVector, entries.filter((entry) => !namedIds.includes(entry.id)), k);
-    const matches = [...namedEntries, ...rest].slice(0, Math.max(k, namedEntries.length));
-    if (!namedEntries.length && (matches.length === 0 || matches[0].score < minScore)) {
+    const categoryEntries = categoryIds
+      .map((id) => entries.find((entry) => entry.id === id))
+      .filter(Boolean)
+      .map((entry) => ({ ...entry, score: cosineSimilarity(queryVector, entry.vector) }));
+    const pinned = [...namedEntries, ...categoryEntries];
+    const rest = topK(queryVector, entries.filter((entry) => !pinned.some((p) => p.id === entry.id)), k);
+    const matches = [...pinned, ...rest].slice(0, Math.max(k, pinned.length));
+    if (!pinned.length && (matches.length === 0 || matches[0].score < minScore)) {
       return res.status(200).json({ answer: NOT_FOUND_ANSWER, sources: [], matched: false });
     }
 
